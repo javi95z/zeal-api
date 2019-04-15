@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectsTable extends Migration
+class CreateAddressesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('contact_id')->unsigned()->nullable();
-            $table->string('name');
-            $table->char('code', 6)->nullable();
-            $table->text('description');
-            $table->enum('status', ['open', 'completed', 'canceled'])->default('open');
-            $table->enum('priority', ['low', 'medium', 'high'])->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->bigInteger('contact_id')->unsigned();
+            $table->string('line_1');
+            $table->string('line_2')->nullable();
+            $table->string('line_3')->nullable();
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('zipcode')->nullable();
             $table->enum('type', ['delivery', 'billing'])->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -40,6 +40,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('addresses');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTicketCommentsTable extends Migration
+class CreateLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateTicketCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_comments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::create('languages', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('abbreviation', 3)->nullable();
+            $table->string('name');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateTicketCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_comments');
+        Schema::dropIfExists('languages');
     }
 }

@@ -14,26 +14,24 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->enum('type', ['client', 'employee']);
-            $table->string('fullname', 100);
+            $table->bigIncrements('id');
+            $table->bigInteger('settings_id')->unsigned();
             $table->string('email', 100)->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->string('address')->nullable();
-            $table->string('state', 100)->nullable();
-            $table->string('city', 100)->nullable();
-            $table->string('country', 100)->nullable();
+            $table->string('first_name', 50);
+            $table->string('last_name', 50);
             $table->string('suffix', 10)->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
-            $table->string('phone_number', 25)->nullable();
-            $table->string('skype', 100)->nullable();
-            $table->string('website', 100)->nullable();
-            $table->string('profile_picture', 255)->default('default.jpg');
-            $table->string('background_picture', 255)->default('default.jpg');
+            $table->string('profile_img')->default('default.jpg');
+            $table->string('background_img')->default('default.jpg');
             $table->boolean('is_admin')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('settings_id')
+                ->references('id')->on('settings')
+                ->onDelete('cascade');
         });
     }
 

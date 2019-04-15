@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePositionUserPivotTable extends Migration
+class CreateTeamUserPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePositionUserPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('position_user', function (Blueprint $table) {
-            $table->integer('position_id')->unsigned()->index();
-            $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
-            $table->integer('user_id')->unsigned()->index();
+        Schema::create('team_user', function (Blueprint $table) {
+            $table->bigInteger('team_id')->unsigned()->index();
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
+            $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->primary(['position_id', 'user_id']);
+            $table->primary(['team_id', 'user_id']);
         });
     }
 
@@ -29,6 +29,6 @@ class CreatePositionUserPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('position_user');
+        Schema::dropIfExists('team_user');
     }
 }
