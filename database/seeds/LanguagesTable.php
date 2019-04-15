@@ -20,5 +20,9 @@ class LanguagesTable extends Seeder
             'name' => 'Spanish',
             'abbreviation' => 'es'
         ]);
+        Language::create([
+            'name' => 'French',
+            'abbreviation' => 'fr'
+        ]);
     }
 }
