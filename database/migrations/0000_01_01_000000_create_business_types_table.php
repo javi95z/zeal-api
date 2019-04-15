@@ -16,6 +16,7 @@ class CreateBusinessTypesTable extends Migration
         Schema::create('business_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('name_plural');
         });
     }
 
