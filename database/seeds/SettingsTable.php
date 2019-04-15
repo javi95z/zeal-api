@@ -1,11 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Position;
 
-use Faker\Factory as Faker;
-
-class DefaultDataSeeder extends Seeder
+class SettingsTable extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +11,6 @@ class DefaultDataSeeder extends Seeder
      */
     public function run()
     {
-        // TODO: Currencies
-        // TODO: Languages
+        //
     }
 }
