@@ -52,12 +52,12 @@ class User extends Authenticatable
 		});
 	}
 
-	/**
-	 * The positions that belong to the user.
-	 */
-	public function positions()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function role()
 	{
-		return $this->belongsToMany('App\Position');
+		return $this->belongsTo('App\Role');
 	}
 	
 	/**

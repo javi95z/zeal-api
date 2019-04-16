@@ -14,5 +14,12 @@ class Role extends Model
 		'description',
 		'color'
 	];
-	
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 }
