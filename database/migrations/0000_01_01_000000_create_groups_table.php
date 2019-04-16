@@ -17,7 +17,9 @@ class CreateGroupsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('discount')->nullable();
+            $table->double('discount')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
