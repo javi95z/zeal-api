@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Notifications\AddedToProject;
 use Auth;
 use Request;
 use Illuminate\Notifications\Notifiable;
@@ -12,6 +11,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 	use SoftDeletes;
+	
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'email',
+		'active',
+		'first_name',
+		'last_name',
+		'suffix',
+		'gender',
+		'profile_img',
+		'background_img',
+		'is_admin'
+    ];
 
     /**
      * @var array
@@ -28,27 +42,27 @@ class User extends Authenticatable
 		parent::boot();
 
 		User::updated(function($user) {
-			$log = new ActivityLog;
-            $log->user_id   		= Auth::id() ? Auth::id() : '1';
-            $log->description		= 'userupdated;' . $user->id;
-			$log->ip_address		= Request::ip();
-			$log->save();  // Insert the new log
+			// $log = new ActivityLog;
+            // $log->user_id   		= Auth::id() ? Auth::id() : '1';
+            // $log->description		= 'userupdated;' . $user->id;
+			// $log->ip_address		= Request::ip();
+			// $log->save();  // Insert the new log
 		});
 
 		User::created(function($user) {
-			$log = new ActivityLog;
-			$log->user_id   		= Auth::id() ? Auth::id() : '1';
-			$log->description		= 'usercreated;' . $user->id;
-			$log->ip_address		= Request::ip();
-			$log->save();  // Insert the new log
+			// $log = new ActivityLog;
+			// $log->user_id   		= Auth::id() ? Auth::id() : '1';
+			// $log->description		= 'usercreated;' . $user->id;
+			// $log->ip_address		= Request::ip();
+			// $log->save();  // Insert the new log
 		});
 
 		User::deleted(function($user) {
-			$log = new ActivityLog;
-            $log->user_id   		= Auth::id() ? Auth::id() : '1';
-            $log->description		= 'userdeleted;' . $user->id;
-			$log->ip_address		= Request::ip();
-			$log->save();  // Insert the new log
+			// $log = new ActivityLog;
+            // $log->user_id   		= Auth::id() ? Auth::id() : '1';
+            // $log->description		= 'userdeleted;' . $user->id;
+			// $log->ip_address		= Request::ip();
+			// $log->save();  // Insert the new log
 		});
 	}
 

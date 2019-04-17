@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Position;
+use App\Role;
 
 use Faker\Factory as Faker;
 
-class PositionsTableSeeder extends Seeder
+class RolesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,7 +17,7 @@ class PositionsTableSeeder extends Seeder
         $faker = Faker::create();
         $rows = 10;
         for ($i=0; $i < $rows; $i++) { 
-            $position = new Position;
+            $position = new Role;
             $position->title = $faker->jobTitle;
             $position->description = $faker->paragraph;
             $position->color = $faker->hexcolor;

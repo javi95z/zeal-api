@@ -4,7 +4,6 @@ namespace App;
 
 use Auth;
 use Request;
-use App\Notifications\AddedToProject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,12 +12,17 @@ class Project extends Model
 	use SoftDeletes;
 
 	/**
-	 * The attributes that are mass assignable.
-	 *
 	 * @var array
 	 */
 	protected $fillable = [
-		'code', 'title', 'description', 'start_date', 'end_date', 'status', 'price',
+		'code',
+		'title',
+		'description',
+		'status',
+		'priority',
+		'start_date',
+		'end_date',
+		'type'
 	];
 
 	/**

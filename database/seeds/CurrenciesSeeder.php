@@ -3,7 +3,7 @@
 use App\Currency;
 use Illuminate\Database\Seeder;
 
-class CurrenciesTable extends Seeder
+class CurrenciesSeeder extends Seeder
 {
     /**
      * Run the database seeds.

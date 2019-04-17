@@ -3,7 +3,7 @@
 use App\BusinessType;
 use Illuminate\Database\Seeder;
 
-class BusinessTypesTable extends Seeder
+class BusinessTypesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
