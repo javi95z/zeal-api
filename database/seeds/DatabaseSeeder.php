@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             BusinessTypesSeeder::class,
             CurrenciesSeeder::class,
             LanguagesSeeder::class,
+            RolesSeeder::class,
             UsersSeeder::class
         ]);
     }

@@ -17,7 +17,8 @@ class CreateRolesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->char('color', 6)->default('000000');
+            $table->char('color', 7)->default('#000000');
+            $table->timestamps();
         });
     }
 

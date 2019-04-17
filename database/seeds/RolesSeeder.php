@@ -17,11 +17,11 @@ class RolesSeeder extends Seeder
         $faker = Faker::create();
         $rows = 10;
         for ($i=0; $i < $rows; $i++) { 
-            $position = new Role;
-            $position->title = $faker->jobTitle;
-            $position->description = $faker->paragraph;
-            $position->color = $faker->hexcolor;
-            $position->save();
+            Role::create([
+                'name' => $faker->jobTitle,
+                'description' => $faker->paragraph,
+                'color' => $faker->hexcolor
+            ]);
         }
     }
 }
