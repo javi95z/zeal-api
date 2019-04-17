@@ -18,7 +18,6 @@ class CreateSettingsTable extends Migration
             $table->bigInteger('currency_id')->unsigned();
             $table->bigInteger('language_id')->unsigned();
             $table->string('timezone');
-            $table->timestamps();
 
             $table->foreign('currency_id')
                 ->references('id')->on('currencies')

@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
 
             $table->foreign('role_id')
-                ->references('id')->on('role')
+                ->references('id')->on('roles')
                 ->onDelete('cascade');
             $table->foreign('settings_id')
                 ->references('id')->on('settings')

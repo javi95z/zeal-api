@@ -15,8 +15,8 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('account_number')->nullable();
             $table->bigInteger('currency_id')->unsigned()->nullable();
+            $table->string('account_number')->nullable();
             $table->string('bank')->nullable();
             $table->string('iban')->nullable();
             $table->timestamps();
