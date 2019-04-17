@@ -73,6 +73,14 @@ class User extends Authenticatable
 	{
 		return $this->belongsTo('App\Role');
 	}
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function settings()
+	{
+		return $this->belongsTo('App\Setting');
+	}
 	
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -89,13 +97,5 @@ class User extends Authenticatable
 	{
 		return $this->belongsToMany('App\Project');
 	}
-
-    /**
-     * The tickets that belong to the user.
-     */
-    public function tickets()
-    {
-        return $this->hasMany('App\Ticket');
-    }
 
 }

@@ -17,4 +17,12 @@ class Group extends Model
         'description',
         'discount'
     ];
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function contacts()
+	{
+		return $this->belongsToMany('App\Contact');
+	}
 }

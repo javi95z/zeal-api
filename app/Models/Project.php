@@ -55,11 +55,19 @@ class Project extends Model
 	}
 
 	/**
-	 * The employees that belong to the project.
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */
-	public function users()
+	public function contacts()
 	{
-		return $this->belongsToMany('App\User');
+		return $this->belongsToMany('App\Contact');
+	}
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function comments()
+	{
+		return $this->hasMany('App\ProjectComment');
 	}
 
 	/**
@@ -69,7 +77,5 @@ class Project extends Model
 	{
 		return $this->hasMany('App\Task');
 	}
-
-    // TODO: Función getStatusColor() como en Ticket
 
 }
