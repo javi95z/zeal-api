@@ -4,17 +4,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Zeal API</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Muli:200,600" rel="stylesheet">
 
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
+                background-color: #1a1a1a;
+                color: #fff;
+                font-family: 'Muli', sans-serif;
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
@@ -34,22 +34,21 @@
                 position: relative;
             }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
             .content {
                 text-align: center;
             }
 
+            #logo {
+                width: 150px;
+            }
+
             .title {
-                font-size: 84px;
+                font-size: 80px;
+                margin-bottom: 30px;
             }
 
             .links > a {
-                color: #636b6f;
+                color: #fff;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -57,22 +56,17 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
             <div class="content">
-                <div class="title m-b-md">
-                    Zeal API
-                </div>
-
+                <img id="logo" src="{{ asset('images/logo_color.png') }}" />
+                <div class="title">API</div>
                 <div class="links">
-                    <a target="_blank" href="https://laravel.com/docs">Laravel Docs</a>
-                    <a target="_blank" href="https://github.com/javi95z">GitHub</a>
+                    <a href="https://laravel.com/docs" target="_blank">Docs</a>
+                    <a href="https://github.com/javi95z" target="_blank">GitHub</a>
+                    <a href="https://linkedin.com/in/javier-monfort" target="_blank">LinkedIn</a>
                 </div>
             </div>
         </div>
