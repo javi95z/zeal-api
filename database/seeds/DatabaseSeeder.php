@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             AccountsSeeder::class,
             ContactsSeeder::class,
-            GroupsSeeder::class
+            GroupsSeeder::class,
+            AddressSeeder::class
         ]);
     }
 }

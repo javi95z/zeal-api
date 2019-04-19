@@ -11,7 +11,12 @@ class AddressSeeder extends Seeder
      */
     public function run()
     {
-//        'city' => $faker->city,
-//        'country' => $faker->country,
+        factory(App\Address::class, 60)
+            ->create()
+            ->each(function (App\Address $address) {
+                // Add a random contact to each address
+                $contact = App\Contact::inRandomOrder()->first();
+                $address->contact()->associate($contact)->save();
+            });
     }
 }
