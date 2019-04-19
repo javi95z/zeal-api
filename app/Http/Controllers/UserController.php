@@ -10,11 +10,11 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return User[]
      */
     public function index()
     {
-        return User::all();
+        return User::with('role')->get();
     }
 
     /**
@@ -32,7 +32,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return User
      */
     public function show($id)
     {

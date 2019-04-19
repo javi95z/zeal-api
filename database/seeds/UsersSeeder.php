@@ -13,9 +13,9 @@ class UsersSeeder extends Seeder
     {
         factory(App\User::class, 20)
             ->create()
-            ->each(function ($user) {
-                $role = App\Role::all()->random();
-                // $user->role()->save($role);
+            ->each(function (App\User $user) {
+                $role = App\Role::inRandomOrder()->first();
+                $user->role()->associate($role)->save();
             });
     }
 }
