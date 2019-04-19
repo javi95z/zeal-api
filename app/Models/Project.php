@@ -54,13 +54,21 @@ class Project extends Model
 		});
 	}
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-	 */
-	public function contacts()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function contact()
 	{
-		return $this->belongsToMany('App\Contact');
+		return $this->belongsTo('App\Contact');
 	}
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+	public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -70,9 +78,9 @@ class Project extends Model
 		return $this->hasMany('App\ProjectComment');
 	}
 
-	/**
-	 * The tasks that belong to the project.
-	 */
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
 	public function tasks()
 	{
 		return $this->hasMany('App\Task');

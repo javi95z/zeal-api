@@ -38,6 +38,14 @@ class Contact extends Model
 	{
 		return $this->hasMany('App\Project');
 	}
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group');
+    }
     
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

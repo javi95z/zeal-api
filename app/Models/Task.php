@@ -10,12 +10,11 @@ class Task extends Model
 	use SoftDeletes;
 
     /**
-     * The project to which the task belongs.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function project()
     {
         return $this->belongsTo('App\Project');
     }
 
-    // TODO: Función getStatusColor() como en Ticket
 }
