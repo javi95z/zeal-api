@@ -1,0 +1,15 @@
+<?php
+
+/* @var $factory \Illuminate\Database\Eloquent\Factory */
+
+use App\Account;
+use Faker\Generator as Faker;
+
+$factory->define(Account::class, function (Faker $faker) {
+    return [
+        'account_number' => $faker->creditCardNumber,
+        'cc_type' => $faker->creditCardType,
+        'iban' => $faker->iban($faker->countryCode),
+        'country_code' => $faker->countryCode
+    ];
+});

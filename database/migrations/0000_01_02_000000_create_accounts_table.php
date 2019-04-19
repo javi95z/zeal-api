@@ -18,6 +18,8 @@ class CreateAccountsTable extends Migration
             $table->bigInteger('currency_id')->unsigned()->nullable();
             $table->string('account_number')->nullable();
             $table->string('bank')->nullable();
+            $table->string('cc_type')->nullable();
+            $table->string('country_code', 2)->nullable();
             $table->string('iban')->nullable();
             $table->timestamps();
             $table->softDeletes();
