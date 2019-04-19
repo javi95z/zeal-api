@@ -1,5 +1,7 @@
 <?php
 
+/* @var $factory \Illuminate\Database\Eloquent\Factory */
+
 use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;

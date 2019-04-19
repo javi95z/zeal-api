@@ -8,20 +8,15 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
      * @return User[]
      */
     public function index()
     {
-        return User::with('role')->get();
+        return User::with('role', 'teams')->get();
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
      */
     public function store(Request $request)
     {
@@ -29,22 +24,17 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return User
+     * @param $id
+     * @return User[]
      */
     public function show($id)
     {
-        return User::with('role')->findOrFail($id);
+        return User::with('role', 'teams')->findOrFail($id);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
      */
     public function update(Request $request, $id)
     {
@@ -52,10 +42,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
      */
     public function destroy($id)
     {

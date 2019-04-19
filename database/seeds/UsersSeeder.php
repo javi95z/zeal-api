@@ -14,8 +14,11 @@ class UsersSeeder extends Seeder
         factory(App\User::class, 20)
             ->create()
             ->each(function (App\User $user) {
+                // Add a role and a team to each user
                 $role = App\Role::inRandomOrder()->first();
+                $team = App\Team::inRandomOrder()->first();
                 $user->role()->associate($role)->save();
+                $user->teams()->attach($team);
             });
     }
 }

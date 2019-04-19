@@ -2,11 +2,11 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Model;
+use App\Team;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Team::class, function (Faker $faker) {
     return [
-        //
+        'name' => $faker->state . ' Team'
     ];
 });
