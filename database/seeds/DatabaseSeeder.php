@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             TeamsSeeder::class,
             UsersSeeder::class,
-            AccountsSeeder::class
+            AccountsSeeder::class,
+            ContactsSeeder::class
         ]);
     }
 }

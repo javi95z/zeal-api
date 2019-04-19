@@ -11,9 +11,14 @@ class ContactsSeeder extends Seeder
      */
     public function run()
     {
-        $user->website = $faker->domainName;
-        $user->city = $faker->city;
-        $user->country = $faker->country;
-        $user->phone_number = $faker->phoneNumber;
+        factory(App\Contact::class, 50)
+            ->create()
+            ->each(function (App\Contact $contact) {
+                // Add a random account and business type to each contact
+                $account = App\Account::inRandomOrder()->first();
+                $bt = App\BusinessType::inRandomOrder()->first();
+                $contact->account()->associate($account)->save();
+                $contact->businessType()->associate($bt)->save();
+            });
     }
 }

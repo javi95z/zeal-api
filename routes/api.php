@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('cors')->group(function () {
     Route::apiResources([
         'addresses' => 'AddressController',
+        'accounts' => 'AccountController',
+        'contacts' => 'ContactController',
         'currencies' => 'CurrencyController',
         'languages' => 'LanguageController',
         'projects' => 'ProjectController',

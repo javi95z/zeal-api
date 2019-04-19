@@ -9,7 +9,7 @@ $factory->define(Account::class, function (Faker $faker) {
     return [
         'account_number' => $faker->creditCardNumber,
         'cc_type' => $faker->creditCardType,
-        'iban' => $faker->iban($faker->countryCode),
+        'iban' => $faker->iban(),
         'country_code' => $faker->countryCode
     ];
 });
