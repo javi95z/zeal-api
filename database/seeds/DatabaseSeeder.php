@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             TeamsSeeder::class,
             UsersSeeder::class,
             AccountsSeeder::class,
-            ContactsSeeder::class
+            ContactsSeeder::class,
+            GroupsSeeder::class
         ]);
     }
 }
