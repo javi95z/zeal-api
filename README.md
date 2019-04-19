@@ -6,6 +6,8 @@
 
 Zeal is a project under construction.
 
+<img src="https://i.imgur.com/Ru4qLqh.png" />
+
 <a href="https://www.linkedin.com/in/javier-monfort">
 	<img src="https://i.imgur.com/bYsGDiD.png" />
 </a>
