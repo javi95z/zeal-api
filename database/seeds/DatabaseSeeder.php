@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             AccountsSeeder::class,
             ContactsSeeder::class,
             GroupsSeeder::class,
-            AddressSeeder::class
+            AddressSeeder::class,
+            ProjectsSeeder::class
         ]);
     }
 }

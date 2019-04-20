@@ -23,7 +23,6 @@ class CreateProjectsTable extends Migration
             $table->enum('priority', ['low', 'medium', 'high'])->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->enum('type', ['delivery', 'billing'])->nullable();
             $table->timestamps();
             $table->softDeletes();
 
