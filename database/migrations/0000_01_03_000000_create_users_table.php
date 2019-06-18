@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('settings_id')->unsigned()->nullable();
             $table->string('email', 100)->unique();
             $table->string('password');
+            $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->rememberToken();
             $table->boolean('active');
             $table->string('first_name', 50);
