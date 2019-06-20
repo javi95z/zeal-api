@@ -24,7 +24,7 @@ class User extends Authenticatable
 		'gender',
 		'profile_img',
 		'background_img',
-		'is_admin'
+        'api_token'
     ];
 
     /**
@@ -33,6 +33,7 @@ class User extends Authenticatable
 	protected $hidden = [
 		'password',
 		'remember_token',
+        'is_admin',
 		'role_id',
 		'settings_id'
 	];
