@@ -27,6 +27,7 @@ class AuthController extends Controller
         if (!Auth::attempt($credentials))
             return response()->json(['message' => 'Unauthorized'], 401);
 
+        // Get matched user
         $user = $request->user();
 
         // Return error if user is inactive
@@ -48,6 +49,8 @@ class AuthController extends Controller
             'email'     => 'required|string|email|unique:users',
             'password'  => 'required|string',
         ]);
+
+        // TODO: Error if email exists
 
         // Generate random API token
         $apiToken = Str::random(60);
