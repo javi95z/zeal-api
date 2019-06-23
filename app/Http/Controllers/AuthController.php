@@ -25,7 +25,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
         // Return error if credentials do not match
         if (!Auth::attempt($credentials))
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Incorrect credentials'], 401);
 
         // Get matched user
         $user = $request->user();
@@ -35,7 +35,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'User is inactive'], 401);
 
         // Return user data
-        return response()->json(['user' => $user], 200);
+        return response()->json($user, 200);
     }
 
     /**
