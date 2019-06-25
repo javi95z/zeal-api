@@ -1,70 +1,69 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-
 class AuthController extends Controller
 {
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function login(Request $request)
+    public function __construct()
     {
-        // Validate data
-        $request->validate([
-            'email'     => 'required|string|email',
-            'password'  => 'required|string'
-        ]);
-
-        $credentials = request(['email', 'password']);
-        // Return error if credentials do not match
-        if (!Auth::attempt($credentials))
-            return response()->json(['message' => 'Incorrect credentials'], 401);
-
-        // Get matched user
-        $user = $request->user();
-
-        // Return error if user is inactive
-        if (!$user->active)
-            return response()->json(['message' => 'User is inactive'], 401);
-
-        // Return user data
-        return response()->json($user, 200);
+        $this->middleware('jwt', ['except' => ['login']]);
     }
-
     /**
-     * @param Request $request
+     * Get a JWT via given credentials.
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function signup(Request $request)
+    public function login()
     {
-        // Validate data
-        $request->validate([
-            'email'     => 'required|string|email|unique:users',
-            'password'  => 'required|string',
-        ]);
-
-        // TODO: Error if email exists
-
-        // Generate random API token
-        $apiToken = Str::random(60);
-
-        // Create an insert the user
-        $user = new User;
-        $user->email = $request->email;
-        $user->api_token = $apiToken;
-        $user->password  = bcrypt($request->password);
-        $user->save();
-
+        $credentials = request(['email', 'password']);
+        if (!$token = auth()->attempt($credentials))
+            return response()->json('Login unauthorized', 401);
+        return $this->respondWithToken($token);
+    }
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me()
+    {
+        return response()->json(auth()->user());
+    }
+    public function payload()
+    {
+        return response()->json(auth()->payload());
+    }
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        auth()->logout();
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+    /**
+     * Get the token array structure.
+     *
+     * @param string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
         return response()->json([
-            'message' => 'Successfully created user',
-            'token' => $apiToken
-        ], 201);
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+        ]);
     }
 }
