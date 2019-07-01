@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
     {
         // JWT Exceptions
         if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-            return response()->json(['error' => 'Token is expired'], 400);
+            return response()->json(['error' => 'Token is expired'], 401);
         } elseif ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
             return response()->json(['error' => 'Token is invalid'], 400);
         } elseif ($exception instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
