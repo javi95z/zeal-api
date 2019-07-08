@@ -2,8 +2,6 @@
 
 namespace App;
 
-// use Auth;
-// use Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;

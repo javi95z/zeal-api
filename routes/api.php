@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,4 +21,5 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'users'], function () {
     Route::post('index', 'UserController@index');
     Route::post('{id}', 'UserController@show');
+    Route::delete('{id}', 'UserController@destroy');
 });

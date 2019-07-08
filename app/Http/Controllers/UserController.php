@@ -48,9 +48,14 @@ class UserController extends Controller
 
     /**
      * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $res = User::findOrFail($id);
+        if (!$res) {
+            return response()->json('Couldn\'t delete user');
+        }
+        return response()->json($res->delete(), 200);
     }
 }
