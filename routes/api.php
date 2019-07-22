@@ -21,5 +21,6 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'users'], function () {
     Route::post('index', 'UserController@index');
     Route::post('{id}', 'UserController@show');
+    Route::put('{id}', 'UserController@update');
     Route::delete('{id}', 'UserController@destroy');
 });
