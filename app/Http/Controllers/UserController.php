@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -40,10 +42,13 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
         $res = User::findOrFail($id);
+        $role = Role::findOrFail($request->get('role')['id']);
+        $res->role()->associate($role)->save();
         $res->update(json_decode($request->getContent(), true));
         return response()->json($res, 200);
     }
