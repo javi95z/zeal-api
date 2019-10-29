@@ -24,3 +24,7 @@ Route::group(['prefix' => 'users'], function () {
     Route::put('{id}', 'UserController@update');
     Route::delete('{id}', 'UserController@destroy');
 });
+
+Route::group(['prefix' => 'roles'], function () {
+    Route::post('index', 'RoleController@index');
+});
