@@ -28,3 +28,7 @@ Route::group(['prefix' => 'users'], function () {
 Route::group(['prefix' => 'roles'], function () {
     Route::post('index', 'RoleController@index');
 });
+
+Route::group(['prefix' => 'teams'], function () {
+    Route::post('index', 'TeamController@index');
+});
