@@ -48,7 +48,7 @@ class UserController extends Controller
     {
         $res = User::with('role', 'teams')->findOrFail($id);;
         if ($request->get('role')) {
-            $role = Role::findOrFail($request->get('role'));
+            $role = Role::findOrFail($request->get('role')['id']);
             $res->role()->associate($role)->save();
         }
         $res->update(json_decode($request->getContent(), true));
