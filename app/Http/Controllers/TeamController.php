@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Team;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return Team[]
      */
     public function index()
     {
-        //
+        return Team::all();
     }
 
     /**
