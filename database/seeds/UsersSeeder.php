@@ -14,6 +14,7 @@ class UsersSeeder extends Seeder
         DB::table('users')->insert([
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
+            'is_admin' => true
         ]);
 
         factory(App\User::class, 20)
