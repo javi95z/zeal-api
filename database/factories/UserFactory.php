@@ -15,7 +15,7 @@ $factory->define(User::class, function (Faker $faker) {
         'last_name' => $faker->lastName,
         'suffix' => $faker->title,
         'gender' => Arr::random(['male', 'female']),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'password' => bcrypt('password'),
         'api_token' => Str::random(60),
         'remember_token' => Str::random(10),
         'is_admin' => $faker->boolean
