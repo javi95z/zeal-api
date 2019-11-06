@@ -45,13 +45,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $res = User::with('role', 'teams')->findOrFail($id);;
-        if ($request->get('role')) {
-            $role = Role::findOrFail($request->get('role')['id']);
-            $res->role()->associate($role)->save();
+        $user = User::with('role', 'teams')->findOrFail($id);
+        $user->update($request->all());
+        if ($request->teams) {
+            $user->teams()->sync($request->teams);
         }
-        $res->update(json_decode($request->getContent(), true));
-        return response()->json($res, 200);
+        if ($request->role) {
+            $user->role()->associate(Role::findOrFail($request->role));
+        }
+        $user->save();
+        return response()->json($user->refresh(), 200);
     }
 
     /**
