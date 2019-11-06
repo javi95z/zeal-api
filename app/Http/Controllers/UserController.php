@@ -54,7 +54,7 @@ class UserController extends Controller
             $user->role()->associate(Role::findOrFail($request->role));
         }
         $user->save();
-        return response()->json($user, 200);
+        return response()->json($user->refresh(), 200);
     }
 
     /**
