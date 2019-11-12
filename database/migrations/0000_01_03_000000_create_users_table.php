@@ -26,8 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 50)->nullable();
             $table->string('suffix', 10)->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
-            $table->string('profile_img')->default('default.jpg');
-            $table->string('background_img')->default('default.jpg');
+            $table->string('profile_img')->nullable();
+            $table->string('background_img')->nullable();
             $table->boolean('is_admin')->default(0);
             $table->timestamps();
             $table->softDeletes();

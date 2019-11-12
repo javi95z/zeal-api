@@ -17,8 +17,8 @@ class CreateTeamsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('profile_img')->default('default.jpg');
-            $table->string('background_img')->default('default.jpg');
+            $table->string('profile_img')->nullable();
+            $table->string('background_img')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
