@@ -27,6 +27,7 @@ Route::group(['prefix' => 'users'], function () {
 
 Route::group(['prefix' => 'projects'], function () {
     Route::post('index', 'ProjectController@index');
+    Route::post('{id}', 'ProjectController@show');
 });
 
 Route::group(['prefix' => 'roles'], function () {
