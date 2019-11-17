@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+
 class AuthController extends Controller
 {
     public function __construct()
     {
         $this->middleware('jwt', ['except' => ['login']]);
     }
+
     /**
-     * Get a JWT via given credentials.
+     * Get a token via given credentials
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -19,8 +21,9 @@ class AuthController extends Controller
             return response()->json('Login unauthorized', 401);
         return $this->respondWithToken($token);
     }
+
     /**
-     * Get the authenticated User.
+     * Get the authenticated User
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -32,8 +35,9 @@ class AuthController extends Controller
     {
         return response()->json(auth()->payload());
     }
+
     /**
-     * Log the user out (Invalidate the token).
+     * Log the user out and invalidate the token
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -42,8 +46,9 @@ class AuthController extends Controller
         auth()->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
+
     /**
-     * Refresh a token.
+     * Refresh a token
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -51,11 +56,11 @@ class AuthController extends Controller
     {
         return $this->respondWithToken(auth()->refresh());
     }
+
     /**
      * Get the token array structure.
      *
      * @param string $token
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithToken($token)
