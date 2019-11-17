@@ -9,21 +9,20 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-	use SoftDeletes;
-	
+    use SoftDeletes;
+
     /**
      * @var array
      */
     protected $fillable = [
         'email',
-		'active',
-		'first_name',
-		'last_name',
-		'suffix',
-		'gender',
-		'profile_img',
-		'background_img',
-        'api_token',
+        'active',
+        'first_name',
+        'last_name',
+        'suffix',
+        'gender',
+        'profile_img',
+        'background_img',
         'is_admin'
     ];
 
@@ -31,7 +30,8 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
 	protected $hidden = [
-		'password',
+        'password',
+        'api_token',
 		'remember_token',
 		'role_id',
 		'settings_id'

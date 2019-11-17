@@ -37,3 +37,7 @@ Route::group(['prefix' => 'roles'], function () {
 Route::group(['prefix' => 'teams'], function () {
     Route::post('index', 'TeamController@index');
 });
+
+Route::fallback(function(){
+    return response()->json(['message' => 'Page Not Found'], 404);
+});

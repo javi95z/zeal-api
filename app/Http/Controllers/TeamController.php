@@ -4,25 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Team;
 use Illuminate\Http\Request;
+use App\Http\Resources\TeamCollection;
 
+/**
+ * Class TeamController
+ * @package App\Http\Controllers
+ *
+ * @group Teams
+ */
 class TeamController extends Controller
 {
     /**
-     * @return Team[]
+     * Get all Teams
+     *
+     * @return TeamCollection
      */
     public function index()
     {
-        return Team::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return new TeamCollection(Team::all());
     }
 
     /**

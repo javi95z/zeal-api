@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Role;
 use Illuminate\Http\Request;
 
+/**
+ * Class RoleController
+ * @package App\Http\Controllers
+ *
+ * @group Roles
+ */
 class RoleController extends Controller
 {
     public function __construct()
@@ -13,6 +19,8 @@ class RoleController extends Controller
     }
 
     /**
+     * Get all Roles
+     *
      * @return Role[]
      */
     public function index()
@@ -21,17 +29,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Create new Role.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
