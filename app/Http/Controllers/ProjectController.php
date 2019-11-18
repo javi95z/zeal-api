@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use App\Http\Resources\ProjectCollection;
 
 class ProjectController extends Controller
 {
@@ -12,7 +13,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Project::with('contact', 'users')->get();
+        return new ProjectCollection(Project::with('contact', 'users')->get());
     }
 
     /**

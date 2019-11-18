@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use Illuminate\Http\Request;
+use App\Http\Resources\RoleCollection;
 
 /**
  * Class RoleController
@@ -25,7 +26,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return Role::all();
+        return new RoleCollection(Role::all());
     }
 
     /**

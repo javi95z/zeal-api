@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Team;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Role as RoleResource;
-use App\Http\Resources\TeamCollection as TeamsCollection;
+use App\Http\Resources\TeamCollection as TeamCollection;
 
 /**
  * Class User
@@ -21,8 +20,8 @@ use App\Http\Resources\TeamCollection as TeamsCollection;
  * @property string last_name
  * @property string password
  * @property string profile_img
- * @property Role role
- * @property Team[] teams
+ * @property RoleResource role
+ * @property TeamCollection teams
  * @property string suffix
  * @property string created_at
  * @property string updated_at
@@ -48,7 +47,7 @@ class User extends JsonResource
             'is_admin' => $this->is_admin,
             'last_name' => $this->last_name,
             'role' => new RoleResource($this->whenLoaded('role')),
-            'teams' => new TeamsCollection($this->whenLoaded('teams')),
+            'teams' => new TeamCollection($this->whenLoaded('teams')),
             'password' => $this->when(auth()->user()->is_admin, $this->password),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
