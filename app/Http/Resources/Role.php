@@ -9,8 +9,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @package App\Http\Resources
  *
  * @property int id
- * @property string description
  * @property string color
+ * @property string description
+ * @property string name
  */
 class Role extends JsonResource
 {
@@ -24,8 +25,9 @@ class Role extends JsonResource
     {
         return [
             'id' => $this->id,
+            'color' => $this->color,
             'description' => $this->description,
-            'color' => $this->color
+            'name' => $this->name
         ];
     }
 }

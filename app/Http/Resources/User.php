@@ -44,6 +44,7 @@ class User extends JsonResource
             'active' => $this->active,
             'email' => $this->email,
             'first_name' => $this->first_name,
+            'gender' => $this->gender,
             'is_admin' => $this->is_admin,
             'last_name' => $this->last_name,
             'role' => new RoleResource($this->whenLoaded('role')),
