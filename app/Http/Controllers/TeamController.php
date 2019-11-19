@@ -14,6 +14,11 @@ use App\Http\Resources\TeamCollection;
  */
 class TeamController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt');
+    }
+    
     /**
      * Get all Teams
      *
