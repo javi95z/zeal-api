@@ -15,7 +15,7 @@ class ProjectsSeeder extends Seeder
         factory(App\Project::class, 15)
             ->create()
             ->each(function (App\Project $project) {
-                // Add a contact and some comments to each project
+                // Add a contact and some users and comments to each project
                 $contact = App\Contact::inRandomOrder()->first();
                 $project->contact()->associate($contact)->save();
                 $users = App\User::inRandomOrder()->limit(5)->get();
