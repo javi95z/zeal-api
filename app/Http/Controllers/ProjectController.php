@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Contact;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectCollection;
 
@@ -39,7 +40,16 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $project = Project::with('contact', 'users')->findOrFail($id);
+        $project->update($request->all());
+        if ($request->users) {
+            $project->users()->sync($request->users);
+        }
+        if ($request->contact) {
+            $project->contact()->associate(Contact::findOrFail($request->contact));
+        }
+        $project->save();
+        return response()->json($project->refresh(), 200);
     }
 
     /**
