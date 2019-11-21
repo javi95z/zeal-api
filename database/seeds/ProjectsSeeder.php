@@ -18,6 +18,8 @@ class ProjectsSeeder extends Seeder
                 // Add a contact and some comments to each project
                 $contact = App\Contact::inRandomOrder()->first();
                 $project->contact()->associate($contact)->save();
+                $users = App\User::inRandomOrder()->limit(5)->get();
+                $project->users()->attach($users);
                 $numComments = rand(0, 8);
                 $project->comments()->saveMany(factory(ProjectComment::class, $numComments)->make());
             });
