@@ -7,10 +7,16 @@ use App\Contact;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectCollection;
 
+/**
+ * Class ProjectController
+ * @package App\Http\Controllers
+ *
+ * @group Projects
+ */
 class ProjectController extends Controller
 {
     /**
-     * @return Project[]
+     * @return ProjectCollection
      */
     public function index()
     {
@@ -31,7 +37,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return Project::with('contact', 'users', 'comments.user', 'users', 'tasks')->findOrFail($id);
+        return Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id);
     }
 
     /**
