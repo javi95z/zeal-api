@@ -6,6 +6,7 @@ use App\Project;
 use App\Contact;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectCollection;
+use App\Http\Resources\Project as ProjectResource;
 
 /**
  * Class ProjectController
@@ -15,6 +16,11 @@ use App\Http\Resources\ProjectCollection;
  */
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt');
+    }
+
     /**
      * @return ProjectCollection
      */
@@ -33,11 +39,11 @@ class ProjectController extends Controller
 
     /**
      * @param $id
-     * @return Project
+     * @return ProjectResource
      */
     public function show($id)
     {
-        return Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id);
+        return new ProjectResource(Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id));
     }
 
     /**

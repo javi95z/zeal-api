@@ -7,7 +7,6 @@ use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Resources\User as UserResource;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Class UserController
@@ -25,7 +24,7 @@ class UserController extends Controller
     /**
      * Get all Users
      *
-     * @return JsonResource
+     * @return UserCollection
      */
     public function index()
     {

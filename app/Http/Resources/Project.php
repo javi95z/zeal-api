@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Contact as ContactResource;
+use App\Http\Resources\UserCollection;
 
 /**
  * Class Project
@@ -20,6 +21,7 @@ use App\Http\Resources\Contact as ContactResource;
  * @property string priority
  * @property string start_date
  * @property string status
+ * @property UserCollection users
  * @property string created_at
  * @property string updated_at
  * @property string deleted_at
@@ -45,6 +47,7 @@ class Project extends JsonResource
             'priority' => $this->priority,
             'start_date' => $this->start_date,
             'status' => $this->status,
+            'users' => new UserCollection($this->whenLoaded('users')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at
