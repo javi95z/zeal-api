@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -53,6 +54,10 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Token is invalid'], 400);
         } elseif ($exception instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
             return response()->json(['error' => 'Token absent'], 400);
+        } elseif ($exception instanceof ModelNotFoundException) {
+            return response()->json(['error' => 'Entry for ' . str_replace('App\\', '', $exception->getModel()) . ' not found'], 404);
+        } else {
+            return response()->json(['error' => 'There was an error in your request'], 500);
         }
 
         return parent::render($request, $exception);
