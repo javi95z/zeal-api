@@ -30,6 +30,8 @@ Route::group(['prefix' => 'projects'], function () {
     Route::post('{id}', 'ProjectController@show');
     Route::put('{id}', 'ProjectController@update');
     Route::delete('{id}', 'ProjectController@destroy');
+    Route::put('{id}/addmember', 'ProjectController@addmember');
+    Route::put('{id}/removemember', 'ProjectController@removemember');
 });
 
 Route::group(['prefix' => 'roles'], function () {
