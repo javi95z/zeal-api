@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+/**
+ * Class AuthController
+ * @package App\Http\Controllers
+ *
+ * @group Authentication
+ */
 class AuthController extends Controller
 {
     public function __construct()

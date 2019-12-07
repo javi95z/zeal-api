@@ -21,8 +21,10 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'users'], function () {
     Route::post('index', 'UserController@index');
     Route::post('{id}', 'UserController@show');
+    Route::post('', 'UserController@store');
     Route::put('{id}', 'UserController@update');
     Route::delete('{id}', 'UserController@destroy');
+    Route::put('{id}/addteam', 'UserController@addteam');
 });
 
 Route::group(['prefix' => 'projects'], function () {

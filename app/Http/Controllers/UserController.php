@@ -101,4 +101,16 @@ class UserController extends Controller
         }
         return response()->json($res->delete(), 200);
     }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return UserResource
+     */
+    public function addteam(Request $request, $id)
+    {
+        $user = User::with('teams')->findOrFail($id);
+        $user->teams()->attach($request->get('teams'));
+        return new UserResource($user->refresh());
+    }
 }

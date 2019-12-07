@@ -49,6 +49,7 @@ class ProjectController extends Controller
     /**
      * @param Request $request
      * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -75,6 +76,7 @@ class ProjectController extends Controller
     /**
      * @param Request $request
      * @param $id
+     * @return ProjectResource
      */
     public function removemember(Request $request, $id)
     {
@@ -86,6 +88,7 @@ class ProjectController extends Controller
     /**
      * @param Request $request
      * @param $id
+     * @return ProjectResource
      */
     public function addmember(Request $request, $id)
     {
