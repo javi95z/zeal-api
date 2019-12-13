@@ -25,6 +25,7 @@ Route::group(['prefix' => 'users'], function () {
     Route::put('{id}', 'UserController@update');
     Route::delete('{id}', 'UserController@destroy');
     Route::put('{id}/addteam', 'UserController@addteam');
+    Route::put('{id}/removeteam', 'UserController@removeteam');
 });
 
 Route::group(['prefix' => 'projects'], function () {

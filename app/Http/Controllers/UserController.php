@@ -107,6 +107,18 @@ class UserController extends Controller
      * @param $id
      * @return UserResource
      */
+    public function removeteam(Request $request, $id)
+    {
+        $user = User::with('teams')->findOrFail($id);
+        $user->teams()->detach($request->get('teams'));
+        return new UserResource($user->refresh());
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return UserResource
+     */
     public function addteam(Request $request, $id)
     {
         $user = User::with('teams')->findOrFail($id);
