@@ -50,7 +50,7 @@ class UserController extends Controller
                 $user->role()->associate(Role::findOrFail($request->role));
             }
             return response()->json($user->refresh(), 200);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return response()->json($exception, 400);
         }
     }
@@ -109,7 +109,7 @@ class UserController extends Controller
      */
     public function removeteam(Request $request, $id)
     {
-        $user = User::with('teams')->findOrFail($id);
+        $user = User::with('role', 'teams')->findOrFail($id);
         $user->teams()->detach($request->get('teams'));
         return new UserResource($user->refresh());
     }
@@ -121,8 +121,21 @@ class UserController extends Controller
      */
     public function addteam(Request $request, $id)
     {
-        $user = User::with('teams')->findOrFail($id);
+        $user = User::with('role', 'teams')->findOrFail($id);
         $user->teams()->attach($request->get('teams'));
+        return new UserResource($user->refresh());
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return UserResource
+     */
+    public function changerole(Request $request, $id)
+    {
+        $user = User::with('role', 'teams')->findOrFail($id);
+        $user->role()->associate(Role::findOrFail($request->role));
+        $user->save();
         return new UserResource($user->refresh());
     }
 }
