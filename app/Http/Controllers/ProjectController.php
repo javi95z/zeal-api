@@ -62,7 +62,7 @@ class ProjectController extends Controller
             $project->contact()->associate(Contact::findOrFail($request->contact));
         }
         $project->save();
-        return response()->json($project->refresh(), 200);
+        return new ProjectResource($project->refresh());
     }
 
     /**
