@@ -50,6 +50,7 @@ class User extends JsonResource
             'teams' => new TeamCollection($this->whenLoaded('teams')),
             'password' => $this->when(auth()->user()->is_admin, $this->password),
             'suffix' => $this->suffix,
+            'locale' => $this->locale,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at
