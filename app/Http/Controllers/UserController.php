@@ -35,7 +35,7 @@ class UserController extends Controller
      * Create new User
      *
      * @param Request $request
-     * @return User
+     * @return UserResource
      */
     public function store(Request $request)
     {
@@ -49,7 +49,7 @@ class UserController extends Controller
             if ($request->role) {
                 $user->role()->associate(Role::findOrFail($request->role));
             }
-            return response()->json($user->refresh(), 200);
+            return new UserResource($user->refresh());
         } catch (\Exception $exception) {
             return response()->json($exception, 400);
         }
@@ -71,7 +71,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return UserResource
      */
     public function update(Request $request, $id)
     {
