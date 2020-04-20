@@ -3,30 +3,25 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Contact as ContactResource;
-use App\Http\Resources\UserCollection;
 
 /**
- * Class Project
+ * Class Task
  * @package App\Http\Resources
  *
  * @property int id
  * @property string name
  * @property string code
- * @property ContactResource contact
  * @property string description
- * @property string end_date
- * @property string name
- * @property string title
  * @property string priority
- * @property string start_date
  * @property string status
- * @property UserCollection users
+ * @property string start_date
+ * @property string end_date
  * @property string created_at
  * @property string updated_at
  * @property string deleted_at
+ *
  */
-class Project extends JsonResource
+class Task extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -38,17 +33,13 @@ class Project extends JsonResource
     {
         return [
             'id' => $this->id,
+            'name' => $this->name,
             'code' => $this->code,
-            'contact' => new ContactResource($this->whenLoaded('contact')),
             'description' => $this->description,
             'end_date' => $this->end_date,
-            'name' => $this->name,
-            'title' => $this->title,
             'priority' => $this->priority,
             'start_date' => $this->start_date,
             'status' => $this->status,
-            'users' => new UserCollection($this->whenLoaded('users')),
-            'tasks' => new TaskCollection($this->whenLoaded('tasks')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at

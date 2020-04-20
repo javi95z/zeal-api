@@ -43,15 +43,15 @@ class UserController extends Controller
             $user = User::create($request->all());
             $user->update($request->all());
             $user->save();
-//            if ($request->teams) {
-//                $user->teams()->sync($request->teams);
-//            }
+            if ($request->teams) {
+                $user->teams()->sync($request->teams);
+            }
             if ($request->role) {
                 $user->role()->associate(Role::findOrFail($request->role));
             }
             return new UserResource($user->refresh());
-        } catch (\Exception $exception) {
-            return response()->json($exception, 400);
+        } catch (\Exception $ex) {
+            return response()->json($ex, 400);
         }
     }
 

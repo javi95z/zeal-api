@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\ProjectComment;
+use App\Task;
 
 class ProjectsSeeder extends Seeder
 {
@@ -15,13 +16,14 @@ class ProjectsSeeder extends Seeder
         factory(App\Project::class, 15)
             ->create()
             ->each(function (App\Project $project) {
-                // Add a contact and some users and comments to each project
+                // Add a contact, users, tasks and comments to each project
                 $contact = App\Contact::inRandomOrder()->first();
                 $project->contact()->associate($contact)->save();
                 $users = App\User::inRandomOrder()->limit(5)->get();
                 $project->users()->attach($users);
-                $numComments = rand(0, 8);
-                $project->comments()->saveMany(factory(ProjectComment::class, $numComments)->make());
+                $num = rand(0, 8);
+                $project->tasks()->saveMany(factory(Task::class, $num)->make());
+                $project->comments()->saveMany(factory(ProjectComment::class, $num)->make());
             });
     }
 }
