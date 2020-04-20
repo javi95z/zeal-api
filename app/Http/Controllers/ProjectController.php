@@ -84,7 +84,7 @@ class ProjectController extends Controller
      */
     public function removemember(Request $request, $id)
     {
-        $project = Project::with('users')->findOrFail($id);
+        $project = Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id);
         $project->users()->detach($request->get('users'));
         return new ProjectResource($project->refresh());
     }
@@ -96,7 +96,7 @@ class ProjectController extends Controller
      */
     public function addmember(Request $request, $id)
     {
-        $project = Project::with('users')->findOrFail($id);
+        $project = Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id);
         $project->users()->attach($request->get('users'));
         return new ProjectResource($project->refresh());
     }

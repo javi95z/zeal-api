@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -72,13 +73,14 @@ class TaskController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
      */
     public function destroy($id)
     {
-        //
+        $res = Task::findOrFail($id);
+        if (!$res) {
+            return response()->json('Couldn\'t delete task');
+        }
+        return response()->json($res->delete(), 200);
     }
 }
