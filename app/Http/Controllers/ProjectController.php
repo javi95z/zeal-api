@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\Contact;
+use App\Task;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\Project as ProjectResource;
@@ -99,5 +101,25 @@ class ProjectController extends Controller
         $project = Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id);
         $project->users()->attach($request->get('users'));
         return new ProjectResource($project->refresh());
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return ProjectResource
+     */
+    public function addtask(Request $request, $id)
+    {
+        try {
+            $project = Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id);
+            $user = User::findOrFail(auth()->id());            
+            $task = Task::create($request->get('task'));
+            $task->user()->associate($user);
+            $project->tasks()->save($task);
+            $project->save();
+            return new ProjectResource($project->refresh());
+        } catch (\Exception $ex) {
+            return response()->json($ex, 400);
+        }
     }
 }

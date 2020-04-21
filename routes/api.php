@@ -36,6 +36,11 @@ Route::group(['prefix' => 'projects'], function () {
     Route::delete('{id}', 'ProjectController@destroy');
     Route::put('{id}/addmember', 'ProjectController@addmember');
     Route::put('{id}/removemember', 'ProjectController@removemember');
+    Route::put('{id}/addtask', 'ProjectController@addtask');
+});
+
+Route::group(['prefix' => 'tasks'], function () {
+    Route::delete('{id}', 'TaskController@destroy');
 });
 
 Route::group(['prefix' => 'roles'], function () {
