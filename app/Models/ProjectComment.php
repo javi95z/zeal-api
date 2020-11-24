@@ -14,18 +14,18 @@ class ProjectComment extends Model
     ];
     
 	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * The project to which the comment belongs.
 	 */
 	public function project()
 	{
 		return $this->belongsTo('App\Project');
 	}
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-	public function user()
-	{
-		return $this->belongsTo('App\User');
-	}
+    /**
+     * The user that posted the comment.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

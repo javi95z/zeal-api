@@ -10,7 +10,6 @@ $factory->define(Task::class, function (Faker $faker) {
     $maxDate = $faker->date();
     return [
         'name' => $faker->sentence,
-        'code' => 'TA' . $faker->randomNumber(4),
         'user_id' => function() {
             return App\User::inRandomOrder()->first()->id;
         },

@@ -78,7 +78,7 @@ class User extends Authenticatable implements JWTSubject
 	}
 
 	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * The settings configuration of the user.
 	 */
 	public function settings()
 	{
@@ -86,7 +86,7 @@ class User extends Authenticatable implements JWTSubject
 	}
 
 	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * The teams to which the user belongs.
 	 */
 	public function teams()
 	{
@@ -100,6 +100,14 @@ class User extends Authenticatable implements JWTSubject
 	{
 		return $this->belongsToMany('App\Project');
 	}
+
+    /**
+     * The comments created by the user.
+     */
+	public function task_comments()
+    {
+        return $this->belongsToMany('App\TaskComment');
+    }
 
 	/**
 	 * Get the identifier that will be stored in the subject claim of the JWT.

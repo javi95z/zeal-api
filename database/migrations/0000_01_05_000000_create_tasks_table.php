@@ -18,7 +18,6 @@ class CreateTasksTable extends Migration
             $table->bigInteger('project_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('name');
-            $table->char('code', 6)->nullable();
             $table->text('description')->nullable();
             $table->enum('status', ['open', 'completed', 'canceled'])->default('open');
             $table->enum('priority', ['low', 'medium', 'high'])->nullable();

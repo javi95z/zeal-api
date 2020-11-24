@@ -13,7 +13,6 @@ $factory->define(Address::class, function (Faker $faker) {
         'state' => $faker->state,
         'city' => $faker->city,
         'country' => $faker->country,
-        'zipcode' => $faker->postcode,
-        'type' => Arr::random(['delivery', 'billing'])
+        'zipcode' => $faker->postcode
     ];
 });

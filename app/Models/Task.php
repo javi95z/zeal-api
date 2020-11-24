@@ -13,14 +13,12 @@ class Task extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'code',
 		'name',
 		'description',
 		'status',
 		'priority',
 		'start_date',
 		'end_date',
-		'user_id',
 		'project_id'
 	];
 
@@ -32,8 +30,12 @@ class Task extends Model
 		return $this->belongsTo('App\Project');
 	}
 
-	public function user()
-	{
-		return $this->belongsTo('App\User');
-	}
+    /**
+     * The comments of the task.
+     */
+    public function comments()
+    {
+        return $this->belongsToMany('App\TaskComment');
+    }
+
 }
