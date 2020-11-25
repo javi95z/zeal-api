@@ -10,7 +10,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  * @property int id
  * @property string name
- * @property string code
  * @property string description
  * @property string priority
  * @property string status
@@ -34,7 +33,6 @@ class Task extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'code' => $this->code,
             'description' => $this->description,
             'end_date' => $this->end_date,
             'priority' => $this->priority,

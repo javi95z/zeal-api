@@ -10,8 +10,37 @@ use App\Http\Resources\Task as TaskResource;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt');
+    }
+
     /**
+     * Get all Tasks
+     *
+     * @return TaskCollection
+     */
+    public function index()
+    {
+        return new TaskCollection(Task::all());
+    }
+
+    /**
+     * Get one Task
+     *
      * @param $id
+     * @return TaskResource
+     */
+    public function show($id)
+    {
+        return new TaskResource(Task::with('comments')->findOrFail($id));
+    }
+
+    /**
+     * Delete one Task
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
