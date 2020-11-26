@@ -22,7 +22,6 @@ class User extends Authenticatable implements JWTSubject
 		'gender',
 		'profile_img',
 		'background_img',
-		'locale',
 		'is_admin'
 	];
 
