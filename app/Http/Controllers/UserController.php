@@ -50,8 +50,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = $this->validation($request);
+        if ($validator !== true) return response()->json(['error' => $validator], 400);
         try {
-            $user = User::create();
+            $user = new User;
             if ($request->has('email')) $user->email = $request->email;
             if ($request->has('active')) $user->active = $request->active;
             if ($request->has('first_name')) $user->first_name = $request->first_name;
@@ -61,14 +63,14 @@ class UserController extends Controller
             if ($request->has('profile_img')) $user->profile_img = $request->profile_img;
             if ($request->has('background_img')) $user->background_img = $request->background_img;
             if ($request->has('is_admin')) $user->is_admin = $request->is_admin;
-            if ($request->has('teams')) $user->teams()->sync($request->teams);
-            //            $user->teams()->attach($request->get('teams'));
-            if ($request->has('role')) $user->role()->associate(Role::findOrFail($request->role));
             $user->save();
+            if ($request->has('teams')) $user->teams()->attach($request->get('teams'));
+            if ($request->has('role')) $user->role()->associate(Role::findOrFail($request->role));
+            $user->push();
         } catch (\Exception $ex) {
             return response()->json(['error' => 'There was an error in your request'], 400);
         }
-        return new UserResource($user->refresh());
+        return new UserResource($user->fresh(['role', 'teams'])->refresh());
     }
 
     /**
@@ -91,7 +93,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::with('teams', 'role')->findOrFail($id);
+        $user = User::with('role', 'teams')->findOrFail($id);
         try {
             if ($request->has('email')) $user->email = $request->email;
             if ($request->has('active')) $user->active = $request->active;
