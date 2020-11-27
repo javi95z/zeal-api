@@ -7,6 +7,7 @@ use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Resources\User as UserResource;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class UserController
@@ -19,6 +20,16 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('jwt');
+    }
+
+    public function validation(Request $request)
+    {
+        $validator = Validator::make($request->all(), config('validation.users'));
+        if($validator->fails()) {
+            return $validator->errors();
+        } else {
+            return true;
+        }
     }
 
     /**
