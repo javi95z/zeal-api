@@ -93,6 +93,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = $this->validation($request);
+        if ($validator !== true) return response()->json(['error' => $validator], 400);
         $user = User::with('role', 'teams')->findOrFail($id);
         try {
             if ($request->has('email')) $user->email = $request->email;
