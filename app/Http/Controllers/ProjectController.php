@@ -85,6 +85,8 @@ class ProjectController extends Controller
     }
 
     /**
+     * Update one Project
+     *
      * @param Request $request
      * @param $id
      * @return ProjectResource

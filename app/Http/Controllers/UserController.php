@@ -124,10 +124,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if ($id == auth()->id()) return response()->json(['error' => 'Can\'t delete your own user'], 400);
         $res = User::findOrFail($id);
-        if (!$res->delete()) {
-            return response()->json(['error' => 'Couldn\'t delete user']);
-        }
+        if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete user'], 400);
         return response()->json(true, 200);
     }
 
