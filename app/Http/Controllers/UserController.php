@@ -51,7 +51,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = $this->validation($request);
-        if ($validator !== true) return response()->json(['error' => $validator], 400);
+        if ($validator !== true) return response()->json($validator, 400);
         try {
             $user = new User;
             if ($request->has('email')) $user->email = $request->email;
@@ -94,7 +94,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validator = $this->validation($request);
-        if ($validator !== true) return response()->json(['error' => $validator], 400);
+        if ($validator !== true) return response()->json($validator, 400);
         $user = User::with('role', 'teams')->findOrFail($id);
         try {
             if ($request->has('email')) $user->email = $request->email;
@@ -125,10 +125,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         $res = User::findOrFail($id);
-        if (!$res) {
+        if (!$res->delete()) {
             return response()->json(['error' => 'Couldn\'t delete user']);
         }
-        return response()->json($res->delete(), 200);
+        return response()->json(true, 200);
     }
 
     /**

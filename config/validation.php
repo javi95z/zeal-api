@@ -18,16 +18,17 @@ return [
         'suffix' => 'max:10',
         'gender' => 'in:male,female',
         'is_admin' => 'boolean',
-        'role' => 'numeric',
-        'teams' => 'array'
+        'role' => 'exists:roles,id',
+        'teams' => 'array|exists:teams,id'
     ],
     'projects' => [
         'name' => 'sometimes|required|string',
-        'contact' => 'numeric',
         'code' => 'max:6',
         'status' => 'in:open,completed,canceled',
         'priority' => 'in:low,medium,high',
         'start_date' => 'date',
-        'end_date' => 'date|after:start_date'
+        'end_date' => 'date|after:start_date',
+        'contact' => 'exists:contacts,id',
+        'users' => 'array|exists:users,id'
     ]
 ];
