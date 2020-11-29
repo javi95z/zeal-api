@@ -129,16 +129,4 @@ class UserController extends Controller
         if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete user'], 400);
         return response()->json(true, 200);
     }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return UserResource
-     */
-    public function removeteam(Request $request, $id)
-    {
-        $user = User::with('teams')->findOrFail($id);
-        $user->teams()->detach($request->get('teams'));
-        return new UserResource($user->refresh());
-    }
 }
