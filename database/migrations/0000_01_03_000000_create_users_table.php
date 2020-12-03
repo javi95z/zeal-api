@@ -28,7 +28,6 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('profile_img')->nullable();
             $table->string('background_img')->nullable();
-            $table->string('locale')->nullable()->default('en');
             $table->boolean('is_admin')->default(0);
             $table->timestamps();
             $table->softDeletes();

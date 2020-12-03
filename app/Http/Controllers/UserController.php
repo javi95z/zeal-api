@@ -7,6 +7,7 @@ use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Resources\User as UserResource;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class UserController
@@ -19,6 +20,16 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('jwt');
+    }
+
+    public function validation(Request $request)
+    {
+        $validator = Validator::make($request->all(), config('validation.users'));
+        if($validator->fails()) {
+            return $validator->errors();
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -39,20 +50,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = $this->validation($request);
+        if ($validator !== true) return response()->json($validator, 400);
         try {
-            $user = User::create($request->all());
-            $user->update($request->all());
+            $user = new User;
+            if ($request->has('email')) $user->email = $request->email;
+            if ($request->has('active')) $user->active = $request->active;
+            if ($request->has('first_name')) $user->first_name = $request->first_name;
+            if ($request->has('last_name')) $user->last_name = $request->last_name;
+            if ($request->has('suffix')) $user->suffix = $request->suffix;
+            if ($request->has('gender')) $user->gender = $request->gender;
+            if ($request->has('profile_img')) $user->profile_img = $request->profile_img;
+            if ($request->has('background_img')) $user->background_img = $request->background_img;
+            if ($request->has('is_admin')) $user->is_admin = $request->is_admin;
             $user->save();
-            if ($request->teams) {
-                $user->teams()->sync($request->teams);
-            }
-            if ($request->role) {
-                $user->role()->associate(Role::findOrFail($request->role));
-            }
-            return new UserResource($user->refresh());
+            if ($request->has('teams')) $user->teams()->attach($request->get('teams'));
+            if ($request->has('role')) $user->role()->associate(Role::findOrFail($request->role));
+            $user->push();
         } catch (\Exception $ex) {
-            return response()->json($ex, 400);
+            return response()->json(['error' => 'There was an error in your request'], 400);
         }
+        return new UserResource($user->fresh(['role', 'teams'])->refresh());
     }
 
     /**
@@ -75,15 +93,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = $this->validation($request);
+        if ($validator !== true) return response()->json($validator, 400);
         $user = User::with('role', 'teams')->findOrFail($id);
-        $user->update($request->all());
-        if ($request->teams) {
-            $user->teams()->sync($request->teams);
+        try {
+            if ($request->has('email')) $user->email = $request->email;
+            if ($request->has('active')) $user->active = $request->active;
+            if ($request->has('first_name')) $user->first_name = $request->first_name;
+            if ($request->has('last_name')) $user->last_name = $request->last_name;
+            if ($request->has('suffix')) $user->suffix = $request->suffix;
+            if ($request->has('gender')) $user->gender = $request->gender;
+            if ($request->has('profile_img')) $user->profile_img = $request->profile_img;
+            if ($request->has('background_img')) $user->background_img = $request->background_img;
+            if ($request->has('is_admin')) $user->is_admin = $request->is_admin;
+            if ($request->has('teams')) $user->teams()->sync($request->teams);
+            //            $user->teams()->attach($request->get('teams'));
+            if ($request->has('role')) $user->role()->associate(Role::findOrFail($request->role));
+            $user->save();
+        }  catch (\Exception $ex) {
+            return response()->json(['error' => 'There was an error in your request'], 400);
         }
-        if ($request->role) {
-            $user->role()->associate(Role::findOrFail($request->role));
-        }
-        $user->save();
         return new UserResource($user->refresh());
     }
 
@@ -95,47 +124,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if ($id == auth()->id()) return response()->json(['error' => 'Can\'t delete your own user'], 400);
         $res = User::findOrFail($id);
-        if (!$res) {
-            return response()->json('Couldn\'t delete user');
-        }
-        return response()->json($res->delete(), 200);
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return UserResource
-     */
-    public function removeteam(Request $request, $id)
-    {
-        $user = User::with('role', 'teams')->findOrFail($id);
-        $user->teams()->detach($request->get('teams'));
-        return new UserResource($user->refresh());
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return UserResource
-     */
-    public function addteam(Request $request, $id)
-    {
-        $user = User::with('role', 'teams')->findOrFail($id);
-        $user->teams()->attach($request->get('teams'));
-        return new UserResource($user->refresh());
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return UserResource
-     */
-    public function changerole(Request $request, $id)
-    {
-        $user = User::with('role', 'teams')->findOrFail($id);
-        $user->role()->associate(Role::findOrFail($request->role));
-        $user->save();
-        return new UserResource($user->refresh());
+        if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete user'], 400);
+        return response()->json(true, 200);
     }
 }

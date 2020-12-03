@@ -12,18 +12,15 @@ use App\Http\Resources\TeamCollection as TeamCollection;
  *
  * @property int id
  * @property bool active
- * @property string background_img
  * @property string email
  * @property string first_name
  * @property string gender
  * @property bool is_admin
  * @property string last_name
  * @property string password
- * @property string profile_img
  * @property RoleResource role
  * @property TeamCollection teams
  * @property string suffix
- * @property string locale
  * @property string profile_img
  * @property string background_img
  * @property string created_at
@@ -53,7 +50,6 @@ class User extends JsonResource
             'teams' => new TeamCollection($this->whenLoaded('teams')),
             'password' => $this->when(auth()->user()->is_admin, $this->password),
             'suffix' => $this->suffix,
-            'locale' => $this->locale,
             'profile_img' => $this->profile_img,
             'background_img' => $this->background_img,
             'created_at' => $this->created_at,

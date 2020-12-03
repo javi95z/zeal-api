@@ -15,6 +15,9 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if ($request->user()->is_admin) {
+            return $next($request);
+        }
+        return response()->json(['error' => 'Forbidden.'], 403);
     }
 }
