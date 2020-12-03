@@ -40,6 +40,8 @@ Route::group(['prefix' => 'projects'], function () {
 });
 
 Route::group(['prefix' => 'tasks'], function () {
+    Route::post('index', 'TaskController@index');
+    Route::post('{id}', 'TaskController@show');
     Route::delete('{id}', 'TaskController@destroy');
 });
 

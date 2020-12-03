@@ -19,15 +19,24 @@ class Task extends Model
 		'priority',
 		'start_date',
 		'end_date',
-		'project_id'
+		'project_id',
+		'user_id'
 	];
 
 	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * The project of the task.
 	 */
 	public function project()
 	{
 		return $this->belongsTo('App\Project');
+	}
+
+	/**
+     * The user owner of the task.
+	 */
+	public function user()
+	{
+		return $this->belongsTo('App\User');
 	}
 
     /**
