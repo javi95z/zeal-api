@@ -44,7 +44,7 @@ class Task extends Model
      */
     public function comments()
     {
-        return $this->belongsToMany('App\TaskComment');
+        return $this->hasMany('App\TaskComment');
     }
 
 }

@@ -38,7 +38,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        return new TaskResource(Task::with('project', 'user')->findOrFail($id));
+        return new TaskResource(Task::with('project', 'user', 'comments')->findOrFail($id));
     }
 
     /**

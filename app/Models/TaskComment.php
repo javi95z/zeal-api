@@ -16,7 +16,7 @@ class TaskComment extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * The task of the comment.
      */
     public function task()
     {
@@ -24,11 +24,10 @@ class TaskComment extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * The user owner of the comment.
      */
     public function user()
     {
         return $this->belongsTo('App\User');
     }
-
 }

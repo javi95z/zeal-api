@@ -40,6 +40,7 @@ class Task extends JsonResource
             'status' => $this->status,
             'project' => $this->whenLoaded('project'),
             'user' => $this->whenLoaded('user'),
+            'comments' => $this->whenLoaded('comments'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at

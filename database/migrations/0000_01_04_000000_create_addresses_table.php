@@ -23,7 +23,6 @@ class CreateAddressesTable extends Migration
             $table->string('state')->nullable();
             $table->string('city')->nullable();
             $table->string('zipcode')->nullable();
-            $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('contact_id')

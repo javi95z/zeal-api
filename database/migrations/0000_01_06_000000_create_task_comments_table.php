@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserTaskPivotTable extends Migration
+class CreateTaskCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateUserTaskPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_task', function (Blueprint $table) {
+        Schema::create('task_comments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->bigInteger('task_id')->unsigned()->nullable();
             $table->date('date');
             $table->double('invested_hours');
             $table->text('comment')->nullable();
-            $table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')->on('users')
@@ -38,6 +37,6 @@ class CreateUserTaskPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_task');
+        Schema::dropIfExists('task_comments');
     }
 }

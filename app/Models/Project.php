@@ -67,14 +67,6 @@ class Project extends Model
         return $this->belongsToMany('App\User');
     }
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function comments()
-	{
-		return $this->hasMany('App\ProjectComment');
-	}
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

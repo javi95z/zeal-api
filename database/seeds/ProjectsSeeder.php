@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\ProjectComment;
 use App\Task;
 
 class ProjectsSeeder extends Seeder
@@ -23,7 +22,6 @@ class ProjectsSeeder extends Seeder
                 $project->users()->attach($users);
                 $num = rand(0, 8);
                 $project->tasks()->saveMany(factory(Task::class, $num)->make());
-                $project->comments()->saveMany(factory(ProjectComment::class, $num)->make());
             });
     }
 }
