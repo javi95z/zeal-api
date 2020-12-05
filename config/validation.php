@@ -30,5 +30,14 @@ return [
         'end_date' => 'date|after:start_date',
         'contact' => 'exists:contacts,id',
         'users' => 'array|exists:users,id'
+    ],
+    'tasks' => [
+        'name' => 'sometimes|required|string',
+        'status' => 'in:open,completed,canceled',
+        'priority' => 'in:low,medium,high',
+        'start_date' => 'date',
+        'end_date' => 'date|after:start_date',
+        'project' => 'sometimes|required|exists:projects,id',
+        'user' => 'exists:users,id',
     ]
 ];
