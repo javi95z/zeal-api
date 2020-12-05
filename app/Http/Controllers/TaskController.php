@@ -88,6 +88,34 @@ class TaskController extends Controller
     }
 
     /**
+     * Update one Task
+     *
+     * @param Request $request
+     * @param $id
+     * @return TaskResource
+     */
+    public function update(Request $request, $id)
+    {
+        $validator = $this->validation($request);
+        if ($validator !== true) return response()->json($validator, 400);
+        $task = Task::with('project', 'user', 'comments')->findOrFail($id);
+        try {
+            if ($request->has('name')) $task->name = $request->name;
+            if ($request->has('description')) $task->description = $request->description;
+            if ($request->has('status')) $task->status = $request->status;
+            if ($request->has('priority')) $task->priority = $request->priority;
+            if ($request->has('start_date')) $task->start_date = $request->start_date;
+            if ($request->has('end_date')) $task->end_date = $request->end_date;
+            if ($request->has('project')) $task->project()->associate(Project::findOrFail($request->project));
+            if ($request->has('user')) $task->user()->associate(User::findOrFail($request->user));
+            $task->save();
+        }  catch (\Exception $ex) {
+            return response()->json(['error' => 'There was an error in your request'], 400);
+        }
+        return new TaskResource($task->refresh());
+    }
+
+    /**
      * Delete one Task
      *
      * @param $id

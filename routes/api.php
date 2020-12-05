@@ -41,6 +41,7 @@ Route::group(['prefix' => 'tasks'], function () {
     Route::post('index', 'TaskController@index');
     Route::post('{id}', 'TaskController@show');
     Route::post('', 'TaskController@store');
+    Route::put('{id}', 'TaskController@update');
     Route::delete('{id}', 'TaskController@destroy');
 });
 
