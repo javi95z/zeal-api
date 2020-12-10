@@ -41,7 +41,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return new ProjectCollection(Project::with('contact', 'users')->get());
+        return new ProjectCollection(Project::with('contact:id,name')->get());
     }
 
     /**
@@ -81,7 +81,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return new ProjectResource(Project::with('contact', 'users', 'tasks')->findOrFail($id));
+        return new ProjectResource(Project::with('contact')->findOrFail($id));
     }
 
     /**

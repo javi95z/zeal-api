@@ -24,7 +24,6 @@ class CreateTasksTable extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('project_id')
                 ->references('id')->on('projects')

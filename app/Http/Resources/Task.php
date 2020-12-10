@@ -9,12 +9,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @package App\Http\Resources
  *
  * @property int id
- * @property string name
+ * @property array comments
  * @property string description
- * @property string priority
- * @property string status
- * @property string start_date
  * @property string end_date
+ * @property string name
+ * @property string priority
+ * @property object project
+ * @property string start_date
+ * @property string status
+ * @property object user
  * @property string created_at
  * @property string updated_at
  * @property string deleted_at

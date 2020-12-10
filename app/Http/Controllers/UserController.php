@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Project;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserCollection as UserCollection;
@@ -25,7 +26,7 @@ class UserController extends Controller
     public function validation(Request $request)
     {
         $validator = Validator::make($request->all(), config('validation.users'));
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return $validator->errors();
         } else {
             return true;
@@ -37,8 +38,13 @@ class UserController extends Controller
      *
      * @return UserCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Return users of a project if specified
+        $project = $request->input('project');
+        if ($project) {
+            return new UserCollection(Project::findOrFail($project)->users()->with('role')->get());
+        }
         return new UserCollection(User::with('role', 'teams')->get());
     }
 
@@ -110,7 +116,7 @@ class UserController extends Controller
             //            $user->teams()->attach($request->get('teams'));
             if ($request->has('role')) $user->role()->associate(Role::findOrFail($request->role));
             $user->save();
-        }  catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return response()->json(['error' => 'There was an error in your request'], 400);
         }
         return new UserResource($user->refresh());

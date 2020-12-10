@@ -41,11 +41,15 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        // Return tasks from a specific project
-        if ($request->has('project')) {
-            return new TaskCollection(Task::where('project_id', $request->get('project'))->with('user:id,suffix,last_name,first_name')->get());
-        }
-        return new TaskCollection(Task::with('project:id,name', 'user:id,suffix,last_name,first_name')->get());
+        // Return tasks of a project if specified
+        $project = $request->input('project');
+        return new TaskCollection(
+            Task::when($project, function ($query, $project) {
+                return $query->where('project_id', $project);
+            })
+                ->with('project:id,name', 'user:id,suffix,last_name,first_name')
+                ->get()
+        );
     }
 
     /**
@@ -109,7 +113,7 @@ class TaskController extends Controller
             if ($request->has('project')) $task->project()->associate(Project::findOrFail($request->project));
             if ($request->has('user')) $task->user()->associate(User::findOrFail($request->user));
             $task->save();
-        }  catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return response()->json(['error' => 'There was an error in your request'], 400);
         }
         return new TaskResource($task->refresh());
