@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\Contact;
-use App\Task;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\Project as ProjectResource;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\BaseController;
 
 /**
  * Class ProjectController
@@ -17,21 +15,11 @@ use Illuminate\Support\Facades\Validator;
  *
  * @group Projects
  */
-class ProjectController extends Controller
+class ProjectController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('jwt');
-    }
-
-    public function validation(Request $request)
-    {
-        $validator = Validator::make($request->all(), config('validation.projects'));
-        if($validator->fails()) {
-            return $validator->errors();
-        } else {
-            return true;
-        }
+        $this->ruleNames = 'validation.projects';
     }
 
     /**
@@ -81,7 +69,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return new ProjectResource(Project::with('contact')->findOrFail($id));
+        return new ProjectResource(Project::with('contact', 'users:id')->findOrFail($id));
     }
 
     /**
@@ -126,49 +114,5 @@ class ProjectController extends Controller
             return response()->json(['error' => 'Couldn\'t delete project']);
         }
         return response()->json(true, 200);
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return ProjectResource
-     */
-    public function removemember(Request $request, $id)
-    {
-        $project = Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id);
-        $project->users()->detach($request->get('users'));
-        return new ProjectResource($project->refresh());
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return ProjectResource
-     */
-    public function addmember(Request $request, $id)
-    {
-        $project = Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id);
-        $project->users()->attach($request->get('users'));
-        return new ProjectResource($project->refresh());
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return ProjectResource
-     */
-    public function addtask(Request $request, $id)
-    {
-        try {
-            $project = Project::with('contact', 'users', 'comments.user', 'tasks')->findOrFail($id);
-            $user = User::findOrFail(auth()->id());            
-            $task = Task::create($request->get('task'));
-            $task->user()->associate($user);
-            $project->tasks()->save($task);
-            $project->save();
-            return new ProjectResource($project->refresh());
-        } catch (\Exception $ex) {
-            return response()->json($ex, 400);
-        }
     }
 }

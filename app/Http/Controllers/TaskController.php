@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\TaskCollection as TaskCollection;
 use App\Http\Resources\Task as TaskResource;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\BaseController;
 
 /**
  * Class TaskController
@@ -16,21 +16,11 @@ use Illuminate\Support\Facades\Validator;
  *
  * @group Tasks
  */
-class TaskController extends Controller
+class TaskController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('jwt');
-    }
-
-    public function validation(Request $request)
-    {
-        $validator = Validator::make($request->all(), config('validation.tasks'));
-        if ($validator->fails()) {
-            return $validator->errors();
-        } else {
-            return true;
-        }
+        $this->ruleNames = 'validation.tasks';
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Resources\RoleCollection;
+use App\Http\Controllers\BaseController;
 
 /**
  * Class RoleController
@@ -12,11 +13,10 @@ use App\Http\Resources\RoleCollection;
  *
  * @group Roles
  */
-class RoleController extends Controller
+class RoleController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('jwt');
     }
 
     /**
