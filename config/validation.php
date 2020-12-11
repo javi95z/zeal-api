@@ -17,6 +17,8 @@ return [
         'active' => 'boolean',
         'suffix' => 'max:10',
         'gender' => 'in:male,female',
+        'profile_img' => 'string',
+        'background_img' => 'string',
         'is_admin' => 'boolean',
         'role' => 'exists:roles,id',
         'teams' => 'array|exists:teams,id'
@@ -39,5 +41,11 @@ return [
         'end_date' => 'date|after:start_date',
         'project' => 'sometimes|required|exists:projects,id',
         'user' => 'exists:users,id',
+    ],
+    'teams' => [
+        'name' => 'sometimes|required|string',
+        'profile_img' => 'string',
+        'background_img' => 'string',
+        'users' => 'array|exists:users,id'
     ]
 ];

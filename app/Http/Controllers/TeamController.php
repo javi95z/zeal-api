@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Resources\TeamCollection;
+use App\Http\Controllers\BaseController;
 
 /**
  * Class TeamController
@@ -12,13 +13,13 @@ use App\Http\Resources\TeamCollection;
  *
  * @group Teams
  */
-class TeamController extends Controller
+class TeamController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('jwt');
+        $this->ruleNames = 'validation.teams';
     }
-    
+
     /**
      * Get all Teams
      *
@@ -26,7 +27,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return new TeamCollection(Team::all());
+        return new TeamCollection(Team::with('users:id,first_name,last_name,profile_img')->get());
     }
 
     /**
