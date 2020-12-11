@@ -17,6 +17,7 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => bcrypt('password'),
         'api_token' => Str::random(60),
         'remember_token' => Str::random(10),
+        'profile_img' => "https://randomuser.me/api/portraits/" . Arr::random(['men', 'women']) . "/" . $faker->randomFloat(0, 0, 80) . ".jpg",
         'is_admin' => $faker->boolean
     ];
 });

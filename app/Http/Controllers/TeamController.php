@@ -27,7 +27,7 @@ class TeamController extends BaseController
      */
     public function index()
     {
-        return new TeamCollection(Team::with('users:id,first_name,last_name,profile_img')->get());
+        return new TeamCollection(Team::with('users:id,name,profile_img')->get());
     }
 
     /**
