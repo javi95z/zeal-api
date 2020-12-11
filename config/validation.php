@@ -12,7 +12,7 @@
 
 return [
     'users' => [
-        'last_name' => 'sometimes|required',
+        'name' => 'sometimes|required|string',
         'email' => 'sometimes|required|unique:users,email|max:100',
         'active' => 'boolean',
         'suffix' => 'max:10',

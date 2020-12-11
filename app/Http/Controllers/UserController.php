@@ -52,8 +52,7 @@ class UserController extends BaseController
             $user = new User;
             if ($request->has('email')) $user->email = $request->email;
             if ($request->has('active')) $user->active = $request->active;
-            if ($request->has('first_name')) $user->first_name = $request->first_name;
-            if ($request->has('last_name')) $user->last_name = $request->last_name;
+            if ($request->has('name')) $user->name = $request->name;
             if ($request->has('suffix')) $user->suffix = $request->suffix;
             if ($request->has('gender')) $user->gender = $request->gender;
             if ($request->has('profile_img')) $user->profile_img = $request->profile_img;
@@ -95,8 +94,7 @@ class UserController extends BaseController
         try {
             if ($request->has('email')) $user->email = $request->email;
             if ($request->has('active')) $user->active = $request->active;
-            if ($request->has('first_name')) $user->first_name = $request->first_name;
-            if ($request->has('last_name')) $user->last_name = $request->last_name;
+            if ($request->has('name')) $user->name = $request->name;
             if ($request->has('suffix')) $user->suffix = $request->suffix;
             if ($request->has('gender')) $user->gender = $request->gender;
             if ($request->has('profile_img')) $user->profile_img = $request->profile_img;

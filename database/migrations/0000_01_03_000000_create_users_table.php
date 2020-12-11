@@ -22,8 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->rememberToken();
             $table->boolean('active')->nullable()->default(1);
-            $table->string('first_name', 50)->nullable();
-            $table->string('last_name', 50)->default('');
+            $table->string('name')->default('');
             $table->string('suffix', 10)->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('profile_img')->nullable();

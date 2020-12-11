@@ -69,7 +69,7 @@ class ProjectController extends BaseController
      */
     public function show($id)
     {
-        return new ProjectResource(Project::with('contact', 'users:id')->findOrFail($id));
+        return new ProjectResource(Project::with('contact', 'users:id,name')->findOrFail($id));
     }
 
     /**

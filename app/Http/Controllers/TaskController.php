@@ -37,7 +37,7 @@ class TaskController extends BaseController
             Task::when($project, function ($query, $project) {
                 return $query->where('project_id', $project);
             })
-                ->with('project:id,name', 'user:id,suffix,last_name,first_name')
+                ->with('project:id,name', 'user:id,suffix,name')
                 ->get()
         );
     }

@@ -3,12 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model
 {
-    use SoftDeletes;
-    
     /**
      * @var array
      */
@@ -19,10 +16,9 @@ class Address extends Model
         'country',
         'state',
         'city',
-        'zipcode',
-        'type'
+        'zipcode'
     ];
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
