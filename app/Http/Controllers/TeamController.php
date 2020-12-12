@@ -43,7 +43,21 @@ class TeamController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validation($request);
+        if ($validator !== true) return response()->json($validator, 400);
+        try {
+            $team = new Team;
+            if ($request->has('name')) $team->name = $request->name;
+            if ($request->has('description')) $team->description = $request->description;
+            if ($request->has('profile_img')) $team->profile_img = $request->profile_img;
+            if ($request->has('background_img')) $team->background_img = $request->background_img;
+            $team->save();
+            if ($request->has('users')) $team->users()->attach($request->users);
+            $team->push();
+        } catch (\Exception $ex) {
+            return response()->json(['error' => 'There was an error in your request'], 400);
+        }
+        return new TeamResource($team->fresh()->refresh());
     }
 
     /**
