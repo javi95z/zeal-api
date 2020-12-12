@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Resources\TeamCollection;
+use App\Http\Resources\Team as TeamResource;
 use App\Http\Controllers\BaseController;
 
 /**
@@ -31,10 +32,10 @@ class TeamController extends BaseController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create new Team
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @return TeamResource
      */
     public function store(Request $request)
     {
@@ -42,37 +43,39 @@ class TeamController extends BaseController
     }
 
     /**
-     * Display the specified resource.
+     * Get one Team
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return TeamResource
      */
     public function show($id)
     {
-        //
+        return new TeamResource(Team::with('users:id,name')->findOrFail($id));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update one Team
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return TeamResource
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = $this->validation($request);
+        if ($validator !== true) return response()->json($validator, 400);
+        $team = Team::with('users')->findOrFail($id);
+        try {
+            if ($request->has('name')) $team->name = $request->name;
+            if ($request->has('description')) $team->description = $request->description;
+            if ($request->has('profile_img')) $team->profile_img = $request->profile_img;
+            if ($request->has('background_img')) $team->background_img = $request->background_img;
+            if ($request->has('users')) $team->users()->sync($request->users);
+            $team->save();
+        } catch (\Exception $ex) {
+            return response()->json(['error' => 'There was an error in your request'], 400);
+        }
+        return new TeamResource($team->refresh());
     }
 
     /**

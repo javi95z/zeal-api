@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Project;
 use App\Role;
+use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Resources\User as UserResource;
@@ -30,11 +31,11 @@ class UserController extends BaseController
      */
     public function index(Request $request)
     {
-        // Return users of a project if specified
+        // Return users of a project or team if specified
         $project = $request->input('project');
-        if ($project) {
-            return new UserCollection(Project::findOrFail($project)->users()->with('role')->get());
-        }
+        $team = $request->input('team');
+        if ($project) return new UserCollection(Project::findOrFail($project)->users()->with('role')->get());
+        if ($team) return new UserCollection(Team::findOrFail($team)->users()->with('role')->get());
         return new UserCollection(User::with('role', 'teams')->get());
     }
 
@@ -71,7 +72,7 @@ class UserController extends BaseController
     /**
      * Get one User
      *
-     * @param $id
+     * @param  int $id
      * @return UserResource
      */
     public function show($id)
@@ -83,7 +84,7 @@ class UserController extends BaseController
      * Update one User
      *
      * @param Request $request
-     * @param $id
+     * @param int $id
      * @return UserResource
      */
     public function update(Request $request, $id)
@@ -101,7 +102,6 @@ class UserController extends BaseController
             if ($request->has('background_img')) $user->background_img = $request->background_img;
             if ($request->has('is_admin')) $user->is_admin = $request->is_admin;
             if ($request->has('teams')) $user->teams()->sync($request->teams);
-            //            $user->teams()->attach($request->get('teams'));
             if ($request->has('role')) $user->role()->associate(Role::findOrFail($request->role));
             $user->save();
         } catch (\Exception $ex) {

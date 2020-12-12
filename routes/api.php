@@ -32,9 +32,6 @@ Route::group(['prefix' => 'projects'], function () {
     Route::post('', 'ProjectController@store');
     Route::put('{id}', 'ProjectController@update');
     Route::delete('{id}', 'ProjectController@destroy');
-//    Route::put('{id}/addmember', 'ProjectController@addmember');
-//    Route::put('{id}/removemember', 'ProjectController@removemember');
-//    Route::put('{id}/addtask', 'ProjectController@addtask');
 });
 
 Route::group(['prefix' => 'tasks'], function () {
@@ -51,6 +48,9 @@ Route::group(['prefix' => 'roles'], function () {
 
 Route::group(['prefix' => 'teams'], function () {
     Route::post('index', 'TeamController@index');
+    Route::post('{id}', 'TeamController@show');
+    Route::put('{id}', 'TeamController@update');
+    Route::delete('{id}', 'TeamController@destroy');
 });
 
 Route::fallback(function () {
