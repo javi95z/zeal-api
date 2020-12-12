@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Team;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\TeamCollection;
 use App\Http\Resources\Team as TeamResource;
@@ -26,8 +27,11 @@ class TeamController extends BaseController
      *
      * @return TeamCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Return teams of a user if specified
+        $user = $request->input('user');
+        if ($user) return new TeamCollection(User::findOrFail($user)->teams()->with(with('users:id,name,profile_img'))->get());
         return new TeamCollection(Team::with('users:id,name,profile_img')->get());
     }
 

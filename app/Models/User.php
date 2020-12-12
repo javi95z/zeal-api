@@ -100,6 +100,14 @@ class User extends Authenticatable implements JWTSubject
 		return $this->belongsToMany('App\Project');
 	}
 
+	/**
+	 * The tasks the user owns.
+	 */
+	public function tasks()
+	{
+		return $this->hasMany('App\Task');
+	}
+
     /**
      * The comments created by the user.
      */

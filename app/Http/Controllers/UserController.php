@@ -77,7 +77,7 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        return new UserResource(User::with('role', 'teams')->findOrFail($id));
+        return new UserResource(User::with('role', 'teams:id')->findOrFail($id));
     }
 
     /**
