@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Resources\RoleCollection;
-use App\Http\Controllers\BaseController;
 
 /**
  * Class RoleController
@@ -75,13 +74,15 @@ class RoleController extends BaseController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete one Role
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $res = Role::findOrFail($id);
+        if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete role']);
+        return response()->json(true, 200);
     }
 }

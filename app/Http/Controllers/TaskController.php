@@ -8,7 +8,6 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\TaskCollection as TaskCollection;
 use App\Http\Resources\Task as TaskResource;
-use App\Http\Controllers\BaseController;
 
 /**
  * Class TaskController
@@ -26,7 +25,7 @@ class TaskController extends BaseController
     /**
      * Get all Tasks
      *
-     * @param $request
+     * @param Request $request
      * @return TaskCollection
      */
     public function index(Request $request)
@@ -70,7 +69,7 @@ class TaskController extends BaseController
     /**
      * Get one Task
      *
-     * @param $id
+     * @param int $id
      * @return UserResource
      */
     public function show($id)
@@ -82,7 +81,7 @@ class TaskController extends BaseController
      * Update one Task
      *
      * @param Request $request
-     * @param $id
+     * @param int $id
      * @return TaskResource
      */
     public function update(Request $request, $id)
@@ -109,15 +108,13 @@ class TaskController extends BaseController
     /**
      * Delete one Task
      *
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
         $res = Task::findOrFail($id);
-        if (!$res) {
-            return response()->json('Couldn\'t delete task');
-        }
-        return response()->json($res->delete(), 200);
+        if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete task']);
+        return response()->json(true, 200);
     }
 }

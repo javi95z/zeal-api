@@ -9,7 +9,6 @@ use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Resources\User as UserResource;
-use App\Http\Controllers\BaseController;
 
 /**
  * Class UserController
@@ -27,6 +26,7 @@ class UserController extends BaseController
     /**
      * Get all Users
      *
+     * @param Request $request
      * @return UserCollection
      */
     public function index(Request $request)
@@ -72,7 +72,7 @@ class UserController extends BaseController
     /**
      * Get one User
      *
-     * @param  int $id
+     * @param int $id
      * @return UserResource
      */
     public function show($id)

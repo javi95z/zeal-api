@@ -7,7 +7,6 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\TeamCollection;
 use App\Http\Resources\Team as TeamResource;
-use App\Http\Controllers\BaseController;
 
 /**
  * Class TeamController
@@ -25,6 +24,7 @@ class TeamController extends BaseController
     /**
      * Get all Teams
      *
+     * @param Request $request
      * @return TeamCollection
      */
     public function index(Request $request)
@@ -38,7 +38,7 @@ class TeamController extends BaseController
     /**
      * Create new Team
      *
-     * @param  Request $request
+     * @param Request $request
      * @return TeamResource
      */
     public function store(Request $request)
@@ -63,7 +63,7 @@ class TeamController extends BaseController
     /**
      * Get one Team
      *
-     * @param  int  $id
+     * @param int $id
      * @return TeamResource
      */
     public function show($id)
@@ -97,13 +97,16 @@ class TeamController extends BaseController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete one Team
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        if ($id == auth()->id()) return response()->json(['error' => 'Can\'t delete your own user'], 400);
+        $res = Team::findOrFail($id);
+        if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete user'], 400);
+        return response()->json(true, 200);
     }
 }

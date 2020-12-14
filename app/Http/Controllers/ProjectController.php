@@ -7,7 +7,6 @@ use App\Contact;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\Project as ProjectResource;
-use App\Http\Controllers\BaseController;
 
 /**
  * Class ProjectController
@@ -64,7 +63,7 @@ class ProjectController extends BaseController
     /**
      * Get one Project
      *
-     * @param $id
+     * @param int $id
      * @return ProjectResource
      */
     public function show($id)
@@ -76,7 +75,7 @@ class ProjectController extends BaseController
      * Update one Project
      *
      * @param Request $request
-     * @param $id
+     * @param int $id
      * @return ProjectResource
      */
     public function update(Request $request, $id)
@@ -104,15 +103,13 @@ class ProjectController extends BaseController
     /**
      * Delete one Project
      *
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
         $res = Project::findOrFail($id);
-        if (!$res->delete()) {
-            return response()->json(['error' => 'Couldn\'t delete project']);
-        }
+        if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete project']);
         return response()->json(true, 200);
     }
 }
