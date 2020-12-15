@@ -31,11 +31,13 @@ class UserController extends BaseController
      */
     public function index(Request $request)
     {
-        // Return users of a project or team if specified
+        // Return users of a project, team or role if specified
         $project = $request->input('project');
         $team = $request->input('team');
+        $role = $request->input('role');
         if ($project) return new UserCollection(Project::findOrFail($project)->users()->with('role')->get());
         if ($team) return new UserCollection(Team::findOrFail($team)->users()->with('role')->get());
+        if ($role) return new UserCollection(Role::findOrFail($role)->users()->get());
         return new UserCollection(User::with('role', 'teams')->get());
     }
 
