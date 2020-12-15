@@ -44,6 +44,10 @@ Route::group(['prefix' => 'tasks'], function () {
 
 Route::group(['prefix' => 'roles'], function () {
     Route::post('index', 'RoleController@index');
+    Route::post('{id}', 'RoleController@show');
+    Route::post('', 'RoleController@store');
+    Route::put('{id}', 'RoleController@update');
+    Route::delete('{id}', 'RoleController@destroy');
 });
 
 Route::group(['prefix' => 'teams'], function () {

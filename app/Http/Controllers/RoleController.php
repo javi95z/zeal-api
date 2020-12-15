@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Resources\RoleCollection;
+use App\Http\Resources\Role as RoleResource;
 
 /**
  * Class RoleController
@@ -16,6 +17,7 @@ class RoleController extends BaseController
 {
     public function __construct()
     {
+        $this->ruleNames = 'validation.roles';
     }
 
     /**
@@ -31,46 +33,57 @@ class RoleController extends BaseController
     /**
      * Create new Role.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RoleResource
      */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validation($request);
+        if ($validator !== true) return response()->json($validator, 400);
+        try {
+            $role = new Role;
+            if ($request->has('name')) $role->name = $request->name;
+            if ($request->has('description')) $role->description = $request->description;
+            if ($request->has('color')) $role->color = $request->color;
+            $role->save();
+        } catch (\Exception $ex) {
+            return response()->json(['error' => 'There was an error in your request'], 400);
+        }
+        return new RoleResource($role->fresh()->refresh());
     }
 
     /**
-     * Display the specified resource.
+     * Get one Role
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RoleResource
      */
     public function show($id)
     {
-        //
+        return new RoleResource(Role::findOrFail($id));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update one Role
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return RoleResource
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = $this->validation($request);
+        if ($validator !== true) return response()->json($validator, 400);
+        $role = Role::findOrFail($id);
+        try {
+            if ($request->has('name')) $role->name = $request->name;
+            if ($request->has('description')) $role->description = $request->description;
+            if ($request->has('color')) $role->color = $request->color;
+            $role->save();
+        } catch (\Exception $ex) {
+            return response()->json(['error' => 'There was an error in your request'], 400);
+        }
+        return new RoleResource($role->refresh());
     }
 
     /**

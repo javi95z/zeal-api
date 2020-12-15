@@ -47,5 +47,9 @@ return [
         'profile_img' => 'string',
         'background_img' => 'string',
         'users' => 'array|exists:users,id'
-    ]
+    ],
+    'roles' => [
+        'name' => 'sometimes|required|string',
+        'color' => 'string|max:7'
+    ],
 ];

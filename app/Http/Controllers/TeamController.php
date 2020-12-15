@@ -99,14 +99,13 @@ class TeamController extends BaseController
     /**
      * Delete one Team
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if ($id == auth()->id()) return response()->json(['error' => 'Can\'t delete your own user'], 400);
         $res = Team::findOrFail($id);
-        if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete user'], 400);
+        if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete team']);
         return response()->json(true, 200);
     }
 }
