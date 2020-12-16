@@ -18,6 +18,7 @@ class TeamController extends BaseController
 {
     public function __construct()
     {
+        parent::__construct();
         $this->ruleNames = 'validation.teams';
     }
 

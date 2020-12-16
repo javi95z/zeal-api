@@ -17,6 +17,7 @@ class RoleController extends BaseController
 {
     public function __construct()
     {
+        parent::__construct();
         $this->ruleNames = 'validation.roles';
     }
 
