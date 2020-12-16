@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\User;
 use App\Contact;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectCollection;
@@ -25,10 +26,13 @@ class ProjectController extends BaseController
     /**
      * Get all Projects
      *
+     * @param Request $request
      * @return ProjectCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        $user = $request->input('user');
+        if ($user) return new ProjectCollection(User::findOrFail($user)->projects()->with('contact:id,name')->get());
         return new ProjectCollection(Project::with('contact:id,name')->get());
     }
 
