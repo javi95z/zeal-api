@@ -58,7 +58,7 @@ class TeamController extends BaseController
         } catch (\Exception $ex) {
             return response()->json(['error' => 'There was an error in your request'], 400);
         }
-        return new TeamResource($team->fresh()->refresh());
+        return new TeamResource($team->fresh(['users:id,name,profile_img'])->refresh());
     }
 
     /**

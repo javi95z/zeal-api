@@ -34,7 +34,7 @@ class TaskController extends BaseController
         // Return tasks of a project or user if specified
         $project = $request->input('project');
         $user = $request->input('user');
-        if ($project) return new TaskCollection(Project::findOrFail($project)->tasks()->get());
+        if ($project) return new TaskCollection(Project::findOrFail($project)->tasks()->with('user:id,suffix,name')->get());
         if ($user) return new TaskCollection(User::findOrFail($user)->tasks()->with('project:id,name')->get());
         return new TaskCollection(Task::with('project:id,name', 'user:id,suffix,name')->get());
     }
