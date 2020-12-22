@@ -41,7 +41,6 @@ class Project extends JsonResource
             'description' => $this->description,
             'end_date' => $this->end_date,
             'name' => $this->name,
-            'title' => $this->title,
             'priority' => $this->priority,
             'start_date' => $this->start_date,
             'status' => $this->status,

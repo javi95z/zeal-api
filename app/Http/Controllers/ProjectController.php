@@ -73,7 +73,7 @@ class ProjectController extends BaseController
      */
     public function show($id)
     {
-        return new ProjectResource(Project::with('contact', 'users:id,name')->findOrFail($id));
+        return new ProjectResource(Project::with(['contact', 'users:id,name'])->findOrFail($id));
     }
 
     /**
@@ -87,7 +87,7 @@ class ProjectController extends BaseController
     {
         $validator = $this->validation($request);
         if ($validator !== true) return response()->json($validator, 400);
-        $project = Project::with('contact', 'users', 'tasks')->findOrFail($id);
+        $project = Project::with('contact')->findOrFail($id);
         try {
             if ($request->has('name')) $project->name = $request->name;
             if ($request->has('code')) $project->code = $request->code;
@@ -99,7 +99,7 @@ class ProjectController extends BaseController
             if ($request->has('users')) $project->users()->sync($request->users);
             if ($request->has('contact')) $project->contact()->associate(Contact::findOrFail($request->contact));
             $project->save();
-        }  catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return response()->json(['error' => 'There was an error in your request'], 400);
         }
         return new ProjectResource($project->refresh());
