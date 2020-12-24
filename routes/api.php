@@ -32,6 +32,7 @@ Route::group(['prefix' => 'projects'], function () {
     Route::post('', 'ProjectController@store');
     Route::put('{id}', 'ProjectController@update');
     Route::delete('{id}', 'ProjectController@destroy');
+    Route::post('{id}/progress', 'ProjectController@progress');
 });
 
 Route::group(['prefix' => 'tasks'], function () {

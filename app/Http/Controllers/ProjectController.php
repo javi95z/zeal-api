@@ -117,4 +117,26 @@ class ProjectController extends BaseController
         if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete project']);
         return response()->json(true, 200);
     }
+
+    /**
+     * Get progress data of one Project
+     *
+     * @param int $id
+     */
+    public function progress($id)
+    {
+        $project = Project::with('tasks')->findOrFail($id);
+        $open = $project->tasks->where('status', 'open')->count();
+        $openPercent = ($open * 100) / $project->tasks->count();
+        $overdue = $project->tasks->where('end_date', '<', date("Y-m-d"))->count();
+
+        $res = [
+            'project_name' => $project->name,
+            'status' => $project->status,
+            'open' => $open . " tasks",
+            'percent' => number_format(100 - $openPercent, 2),
+            'overdue' => $overdue . " tasks"
+        ];
+        return response()->json($res, 200);
+    }
 }

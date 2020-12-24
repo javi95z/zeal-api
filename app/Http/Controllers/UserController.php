@@ -94,7 +94,7 @@ class UserController extends BaseController
     {
         $validator = $this->validation($request);
         if ($validator !== true) return response()->json($validator, 400);
-        $user = User::with('role', 'teams')->findOrFail($id);
+        $user = User::with('role')->findOrFail($id);
         try {
             if ($request->has('email')) $user->email = $request->email;
             if ($request->has('active')) $user->active = $request->active;
@@ -105,6 +105,7 @@ class UserController extends BaseController
             if ($request->has('background_img')) $user->background_img = $request->background_img;
             if ($request->has('is_admin')) $user->is_admin = $request->is_admin;
             if ($request->has('teams')) $user->teams()->sync($request->teams);
+            if ($request->has('projects')) $user->projects()->sync($request->projects);
             if ($request->has('role')) $user->role()->associate(Role::findOrFail($request->role));
             $user->save();
         } catch (\Exception $ex) {
