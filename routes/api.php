@@ -59,6 +59,12 @@ Route::group(['prefix' => 'teams'], function () {
     Route::delete('{id}', 'TeamController@destroy');
 });
 
+Route::group(['prefix' => 'favorites'], function () {
+    Route::post('index', 'FavoriteController@index');
+    Route::post('', 'FavoriteController@store');
+    Route::delete('{id}', 'FavoriteController@destroy');
+});
+
 Route::fallback(function () {
     return response()->json(['message' => 'Page Not Found'], 404);
 });

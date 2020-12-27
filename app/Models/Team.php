@@ -18,7 +18,14 @@ class Team extends Model
         'profile_img',
         'background_img'
     ];
-	
+
+	/**
+	 * @var array
+	 */
+	protected $hidden = [
+        'pivot'
+    ];
+
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */

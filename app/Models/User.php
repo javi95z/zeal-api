@@ -69,7 +69,7 @@ class User extends Authenticatable implements JWTSubject
 	}
 
 	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * The role the user has.
 	 */
 	public function role()
 	{
@@ -114,6 +114,14 @@ class User extends Authenticatable implements JWTSubject
 	public function task_comments()
     {
         return $this->belongsToMany('App\TaskComment');
+    }
+
+	/**
+	 * The favorites the user has.
+	 */
+	public function favorites()
+	{
+		return $this->hasMany('App\Models\Favorite');
     }
 
 	/**

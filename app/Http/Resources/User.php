@@ -21,6 +21,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property object role
  * @property string suffix
  * @property array teams
+ * @property array favorites
  * @property string created_at
  * @property string updated_at
  * @property string deleted_at
@@ -46,6 +47,7 @@ class User extends JsonResource
             'role' => $this->whenLoaded('role'),
             'teams' => $this->whenLoaded('teams'),
             'projects' => $this->whenLoaded('projects'),
+            'favorites' => $this->whenLoaded('favorites'),
             'password' => $this->when(auth()->user()->is_admin, $this->password),
             'suffix' => $this->suffix,
             'profile_img' => $this->profile_img,
