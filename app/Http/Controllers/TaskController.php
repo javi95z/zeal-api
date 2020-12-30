@@ -31,12 +31,14 @@ class TaskController extends BaseController
      */
     public function index(Request $request)
     {
-        // Return tasks of a project or user if specified
-        $project = $request->input('project');
-        $user = $request->input('user');
-        if ($project) return new TaskCollection(Project::findOrFail($project)->tasks()->with('user:id,suffix,name')->get());
-        if ($user) return new TaskCollection(User::findOrFail($user)->tasks()->with('project:id,name')->get());
-        return new TaskCollection(Task::with('project:id,name', 'user:id,suffix,name')->get());
+        // Filter by projects or users if specified
+        return new TaskCollection(
+            Task::when($request->input('project'), function ($query) use ($request) {
+                $query->orWhereIn('project_id', $request->input('project'));
+            })->when($request->input('user'), function ($query) use ($request) {
+                $query->orWhereIn('user_id', $request->input('user'));
+            })->with('project:id,name', 'user:id,suffix,name')->get()
+        );
     }
 
     /**
@@ -71,7 +73,7 @@ class TaskController extends BaseController
      * Get one Task
      *
      * @param int $id
-     * @return UserResource
+     * @return TaskResource
      */
     public function show($id)
     {

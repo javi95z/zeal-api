@@ -23,6 +23,13 @@ class Project extends Model
 	];
 
 	/**
+	 * @var array
+	 */
+	protected $hidden = [
+		'pivot'
+	];
+
+	/**
 	 * Executed when loading model
 	 */
 	public static function boot()
