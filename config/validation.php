@@ -52,4 +52,12 @@ return [
         'name' => 'sometimes|required|string',
         'color' => 'string|max:7'
     ],
+    'contacts' => [
+        'name' => 'sometimes|required|string',
+        'email' => 'sometimes|required|unique:contacts,email|max:100',
+        'type' => 'in:customer,supplier',
+        'phone_number' => 'max:25',
+        'mobile_phone' => 'max:25',
+        'website' => 'max:100'
+    ],
 ];

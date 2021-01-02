@@ -62,6 +62,9 @@ Route::group(['prefix' => 'teams'], function () {
 Route::group(['prefix' => 'contacts'], function () {
     Route::post('index', 'ContactController@index');
     Route::post('{id}', 'ContactController@show');
+    Route::post('', 'ContactController@store');
+    Route::put('{id}', 'ContactController@update');
+    Route::delete('{id}', 'ContactController@destroy');
 });
 
 Route::group(['prefix' => 'favorites'], function () {

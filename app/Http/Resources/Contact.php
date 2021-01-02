@@ -39,7 +39,7 @@ class Contact extends JsonResource
             'discount' => $this->discount,
             'email' => $this->email,
             'fax' => $this->fax,
-            'business_type' => $this->whenLoaded('businessType'),
+            'type' => $this->type,
             'mobile_phone' => $this->mobile_phone,
             'name' => $this->name,
             'phone_number' => $this->phone_number,
