@@ -25,6 +25,40 @@ class TaskCollection extends ResourceCollection
      */
     public function with($request)
     {
-        return [];
+        if (!$request->input('with')) return [];
+        $response = [];
+        if (in_array("stats", $request->input('with'))) $response["stats"] = $this->stats();
+        return [
+            "meta" => $response
+        ];
+    }
+
+    /**
+     * Get statistics for the tasks of the collection.
+     */
+    private function stats()
+    {
+        $stats = [];
+        $stats["total"] = $this->collection->count();
+        $status = [];
+        $priority = [];
+        foreach ($this->collection->groupBy("status") as $key => $value) {
+            array_push($status, [
+                "name" => $key,
+                "value" => $value->count(),
+                "percent" => number_format($value->count() * 100 / $stats["total"], 2) . "%"
+            ]);
+        }
+        foreach ($this->collection->groupBy("priority") as $key => $value) {
+            array_push($priority, [
+                "name" => $key,
+                "value" => $value->count(),
+                "percent" => number_format($value->count() * 100 / $stats["total"], 2) . "%"
+            ]);
+        }
+
+        $stats["status"] = $status;
+        $stats["priority"] = $priority;
+        return $stats;
     }
 }
