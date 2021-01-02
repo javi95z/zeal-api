@@ -15,4 +15,13 @@ class BusinessType extends Model
         'name',
         'name_plural'
     ];
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
+    }
 }

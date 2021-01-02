@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use Illuminate\Http\Request;
+use App\Http\Resources\ContactCollection;
 
-class ContactController extends Controller
+class ContactController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('jwt');
+        parent::__construct();
     }
-    
+
     /**
      * @return Contact[]
      */
     public function index()
     {
-        return Contact::with('businessType')->get();
+        return new ContactCollection(Contact::with('businessType:id,name')->get());
     }
 
     /**
