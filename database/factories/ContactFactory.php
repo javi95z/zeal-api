@@ -3,6 +3,7 @@
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use App\Contact;
+use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
 
 $factory->define(Contact::class, function (Faker $faker) {
@@ -13,6 +14,7 @@ $factory->define(Contact::class, function (Faker $faker) {
         'name' => $faker->name,
         'website' => "http://" . $faker->domainName,
         'phone_number' => $faker->e164PhoneNumber,
-        'mobile_phone' => $faker->e164PhoneNumber
+        'mobile_phone' => $faker->e164PhoneNumber,
+        'type' => Arr::random(['customer', 'supplier']),
     ];
 });

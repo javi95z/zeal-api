@@ -16,7 +16,7 @@ class CreateContactsTable extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('account_id')->unsigned()->nullable();
-            $table->bigInteger('business_type_id')->unsigned()->nullable();
+            $table->enum('type', ['supplier', 'customer'])->nullable();
             $table->string('name');
             $table->string('email')->nullable();
             $table->text('bio')->nullable();
@@ -31,9 +31,6 @@ class CreateContactsTable extends Migration
 
             $table->foreign('account_id')
                 ->references('id')->on('accounts')
-                ->onDelete('cascade');
-            $table->foreign('business_type_id')
-                ->references('id')->on('business_types')
                 ->onDelete('cascade');
         });
     }

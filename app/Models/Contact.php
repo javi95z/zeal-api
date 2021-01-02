@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Contact extends Model
 {
     use SoftDeletes;
-    
+
     /**
      * @var array
      */
@@ -22,7 +22,7 @@ class Contact extends Model
         'fax',
         'website'
     ];
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -46,20 +46,12 @@ class Contact extends Model
     {
         return $this->belongsToMany('App\Group');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function account()
     {
         return $this->belongsTo('App\Account');
-    }
-    
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function businessType()
-    {
-        return $this->belongsTo('App\BusinessType');
     }
 }

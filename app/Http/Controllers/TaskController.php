@@ -6,7 +6,7 @@ use App\Task;
 use App\Project;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Resources\TaskCollection as TaskCollection;
+use App\Http\Resources\TaskCollection;
 use App\Http\Resources\Task as TaskResource;
 
 /**
