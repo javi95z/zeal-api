@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Project;
-use App\User;
 use App\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\Project as ProjectResource;
 
@@ -31,9 +31,16 @@ class ProjectController extends BaseController
      */
     public function index(Request $request)
     {
-        $user = $request->input('user');
-        if ($user) return new ProjectCollection(User::findOrFail($user)->projects()->with('contact:id,name')->get());
-        return new ProjectCollection(Project::with('contact:id,name')->get());
+        // Filter by users or contact if specified
+        return new ProjectCollection(
+            Project::when($request->input('user'), function ($query) use ($request) {
+                $query->whereHas('users', function (Builder $query) use ($request) {
+                    $query->whereIn('id', $request->input('user'));
+                });
+            })->when($request->input('contact'), function ($query) use ($request) {
+                $query->where('contact_id', $request->input('contact'));
+            })->with('contact:id,name')->get()
+        );
     }
 
     /**
