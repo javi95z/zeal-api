@@ -45,6 +45,8 @@ class Contact extends JsonResource
             'phone_number' => $this->phone_number,
             'skype' => $this->skype,
             'website' => $this->website,
+            'account' => $this->whenLoaded('account'),
+            'projects' => $this->whenLoaded('projects'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at

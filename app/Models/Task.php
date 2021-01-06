@@ -41,7 +41,7 @@ class Task extends Model
      */
     public function comments()
     {
-        return $this->hasMany('App\TaskComment')->orderBy('date', 'desc')->with('user:last_name');
+        return $this->hasMany('App\TaskComment')->orderBy('date', 'desc')->with('user:name');
     }
 
 }

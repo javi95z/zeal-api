@@ -7,6 +7,7 @@ use App\Project;
 use App\Role;
 use App\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Resources\User as UserResource;
 
@@ -70,6 +71,19 @@ class UserController extends BaseController
             return response()->json(['error' => 'There was an error in your request'], 400);
         }
         return new UserResource($user->fresh(['role', 'teams'])->refresh());
+    }
+
+    public function profileImage(Request $request, $id)
+    {
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $filename = Str::random(15) . "." . $image->extension();
+            $image->move(public_path('images/profile'), $filename);
+        }
+        $user = User::with('role')->findOrFail($id);
+        $user->profile_img = asset('images/profile/' . $filename); //$request->file('profile_image')->getClientOriginalName();
+        $user->save();
+        return new UserResource($user->refresh());
     }
 
     /**
