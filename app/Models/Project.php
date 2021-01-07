@@ -29,35 +29,6 @@ class Project extends Model
 		'pivot'
 	];
 
-	/**
-	 * Executed when loading model
-	 */
-	public static function boot()
-	{
-		parent::boot();
-//		Project::updated(function($user) {
-//			$log = new ActivityLog;
-//			$log->user_id   		= Auth::id() ? Auth::id() : '1';
-//			$log->description		= 'projectupdated;' . $user->id;
-//			$log->ip_address		= Request::ip();
-//			$log->save();  // Insert the new log
-//		});
-//		Project::created(function($user) {
-//			$log = new ActivityLog;
-//			$log->user_id   		= Auth::id() ? Auth::id() : '1';
-//			$log->description		= 'projectcreated;' . $user->id;
-//			$log->ip_address		= Request::ip();
-//			$log->save();  // Insert the new log
-//		});
-//		Project::deleted(function($user) {
-//			$log = new ActivityLog;
-//			$log->user_id   		= Auth::id() ? Auth::id() : '1';
-//			$log->description		= 'projectdeleted;' . $user->id;
-//			$log->ip_address		= Request::ip();
-//			$log->save();  // Insert the new log
-//		});
-	}
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

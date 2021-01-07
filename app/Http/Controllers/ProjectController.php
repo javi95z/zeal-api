@@ -133,6 +133,7 @@ class ProjectController extends BaseController
     public function progress($id)
     {
         $project = Project::with('tasks')->findOrFail($id);
+        if (!$project->tasks()->exists()) return response(null, 200);
         $open = $project->tasks->where('status', 'open')->count();
         $openPercent = ($open * 100) / $project->tasks->count();
         $overdue = $project->tasks->where('end_date', '<', date("Y-m-d"))->count();
