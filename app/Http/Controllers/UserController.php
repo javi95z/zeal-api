@@ -8,6 +8,7 @@ use App\Role;
 use App\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Resources\User as UserResource;
 
@@ -63,6 +64,7 @@ class UserController extends BaseController
             if ($request->has('profile_img')) $user->profile_img = $request->profile_img;
             if ($request->has('background_img')) $user->background_img = $request->background_img;
             if ($request->has('is_admin')) $user->is_admin = $request->is_admin;
+            if ($request->has('password')) $user->password = Hash::make($request->password);
             $user->save();
             if ($request->has('teams')) $user->teams()->attach($request->get('teams'));
             if ($request->has('role')) $user->role()->associate(Role::findOrFail($request->role));
@@ -118,6 +120,7 @@ class UserController extends BaseController
             if ($request->has('profile_img')) $user->profile_img = $request->profile_img;
             if ($request->has('background_img')) $user->background_img = $request->background_img;
             if ($request->has('is_admin')) $user->is_admin = $request->is_admin;
+            if ($request->has('password')) $user->password = Hash::make($request->password);
             if ($request->has('teams')) $user->teams()->sync($request->teams);
             if ($request->has('projects')) $user->projects()->sync($request->projects);
             if ($request->has('role')) $user->role()->associate(Role::findOrFail($request->role));
