@@ -68,6 +68,10 @@ Route::group(['prefix' => 'contacts'], function () {
     Route::delete('{id}', 'ContactController@destroy');
 });
 
+Route::group(['prefix' => 'logs'], function () {
+    Route::post('{id}', 'LogController@show');
+});
+
 Route::group(['prefix' => 'favorites'], function () {
     Route::post('index', 'FavoriteController@index');
     Route::post('', 'FavoriteController@store');
