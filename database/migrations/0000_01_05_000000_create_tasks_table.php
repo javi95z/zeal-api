@@ -19,11 +19,13 @@ class CreateTasksTable extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->double('estimated_hours')->nullable();
             $table->enum('status', ['open', 'completed', 'canceled'])->default('open');
             $table->enum('priority', ['low', 'medium', 'high'])->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('project_id')
                 ->references('id')->on('projects')

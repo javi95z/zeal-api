@@ -39,6 +39,8 @@ class ProjectController extends BaseController
                 });
             })->when($request->input('contact'), function ($query) use ($request) {
                 $query->where('contact_id', $request->input('contact'));
+            })->when($request->input('limit'), function ($query) use ($request) {
+                $query->take($request->limit);
             })->with('contact:id,name')->get()
         );
     }

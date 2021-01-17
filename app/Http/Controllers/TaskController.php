@@ -37,6 +37,8 @@ class TaskController extends BaseController
                 $query->orWhereIn('project_id', $request->input('project'));
             })->when($request->input('user'), function ($query) use ($request) {
                 $query->orWhereIn('user_id', $request->input('user'));
+            })->when($request->input('limit'), function ($query) use ($request) {
+                $query->take($request->limit);
             })->with('project:id,name', 'user:id,suffix,name')->get()
         );
     }
@@ -57,6 +59,7 @@ class TaskController extends BaseController
             if ($request->has('description')) $task->description = $request->description;
             if ($request->has('status')) $task->status = $request->status;
             if ($request->has('priority')) $task->priority = $request->priority;
+            if ($request->has('estimated_hours')) $task->estimated_hours = $request->estimated_hours;
             if ($request->has('start_date')) $task->start_date = $request->start_date;
             if ($request->has('end_date')) $task->end_date = $request->end_date;
             $task->save();
@@ -97,6 +100,7 @@ class TaskController extends BaseController
             if ($request->has('description')) $task->description = $request->description;
             if ($request->has('status')) $task->status = $request->status;
             if ($request->has('priority')) $task->priority = $request->priority;
+            if ($request->has('estimated_hours')) $task->estimated_hours = $request->estimated_hours;
             if ($request->has('start_date')) $task->start_date = $request->start_date;
             if ($request->has('end_date')) $task->end_date = $request->end_date;
             if ($request->has('project')) $task->project()->associate(Project::findOrFail($request->project));

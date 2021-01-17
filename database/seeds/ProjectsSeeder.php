@@ -12,7 +12,7 @@ class ProjectsSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Project::class, 15)
+        factory(App\Project::class, 25)
             ->create()
             ->each(function (App\Project $project) {
                 // Add a contact, users, tasks and comments to each project
@@ -20,7 +20,7 @@ class ProjectsSeeder extends Seeder
                 $project->contact()->associate($contact)->save();
                 $users = App\User::inRandomOrder()->limit(5)->get();
                 $project->users()->attach($users);
-                $num = rand(0, 8);
+                $num = rand(2, 10);
                 $project->tasks()->saveMany(factory(Task::class, $num)->make());
             });
     }

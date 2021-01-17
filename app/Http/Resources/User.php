@@ -46,6 +46,7 @@ class User extends JsonResource
             'name' => $this->name,
             'role' => $this->whenLoaded('role'),
             'teams' => $this->whenLoaded('teams'),
+            'tasks' => $this->whenLoaded('tasks'),
             'projects' => $this->whenLoaded('projects'),
             'favorites' => $this->whenLoaded('favorites'),
             'password' => $this->when(auth()->user()->is_admin, $this->password),

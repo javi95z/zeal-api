@@ -32,8 +32,8 @@ class LogController extends BaseController
                 ->whereIn('item_id', $tasks);
         })->orWhere('user_id', $id)
             ->orderBy('created_at', 'desc')
-            ->when($request->input('amount'), function ($query) use ($request) {
-                $query->take($request->amount);
+            ->when($request->input('limit'), function ($query) use ($request) {
+                $query->take($request->limit);
             })
             ->get();
 

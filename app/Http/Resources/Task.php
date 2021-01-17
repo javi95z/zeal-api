@@ -41,6 +41,7 @@ class Task extends JsonResource
             'priority' => $this->priority,
             'start_date' => $this->start_date,
             'status' => $this->status,
+            'estimated_hours' => $this->estimated_hours,
             'project' => $this->whenLoaded('project'),
             'user' => $this->whenLoaded('user'),
             'comments' => $this->whenLoaded('comments'),

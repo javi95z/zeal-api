@@ -7,16 +7,17 @@ use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
 
 $factory->define(Task::class, function (Faker $faker) {
-    $maxDate = $faker->date();
+    $endDate = $faker->dateTimeBetween('2020-01-01', '2023-01-01');
     return [
         'name' => $faker->sentence,
-        'user_id' => function() {
+        'user_id' => function () {
             return App\User::inRandomOrder()->first()->id;
         },
         'description' => $faker->text(500),
+        'estimated_hours' => $faker->numberBetween(4, 16),
         'status' => Arr::random(['open', 'completed', 'canceled']),
         'priority' => Arr::random(['low', 'medium', 'high']),
-        'start_date' => $faker->date('Y-m-d', $maxDate),
-        'end_date' => $maxDate
+        'start_date' => $faker->dateTimeBetween('2018-01-01', $endDate),
+        'end_date' => $endDate
     ];
 });

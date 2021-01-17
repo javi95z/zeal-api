@@ -35,7 +35,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user()->load('projects:id,name', 'role'));
+        return response()->json(auth()->user()->load('projects:id,name', 'tasks', 'role'));
     }
     public function payload()
     {
