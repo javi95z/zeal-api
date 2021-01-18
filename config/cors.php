@@ -11,9 +11,9 @@ return [
     | to accept any value.
     |
     */
-   
+
     'supportsCredentials' => true,
-    'allowedOrigins' => ['http://localhost:4200'], // Angular dev server
+    'allowedOrigins' => ['*'],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
