@@ -18,7 +18,7 @@ class Cors
     {
         $response = $next($request);
         // $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Access-Control-Allow-Origin', 'zeal-api.herokuapp.com');
+        // $response->headers->set('Access-Control-Allow-Origin', 'zeal-api.herokuapp.com');
         return $response;
     }
 }
