@@ -40,11 +40,11 @@ class Task extends Model
 	}
 
     /**
-     * The comments of the task.
+     * The reports of the task.
      */
-    public function comments()
+    public function reports()
     {
-        return $this->hasMany('App\TaskComment')->orderBy('date', 'desc')->with('user:name');
+        return $this->hasMany('App\TaskReport')->orderBy('created_at', 'desc')->with('user:name');
     }
 
 }

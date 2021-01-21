@@ -80,7 +80,7 @@ class TaskController extends BaseController
      */
     public function show($id)
     {
-        return new TaskResource(Task::with('project', 'user', 'comments')->findOrFail($id));
+        return new TaskResource(Task::with('project', 'user', 'reports')->findOrFail($id));
     }
 
     /**
@@ -94,7 +94,7 @@ class TaskController extends BaseController
     {
         $validator = $this->validation($request);
         if ($validator !== true) return response()->json($validator, 400);
-        $task = Task::with('project', 'user', 'comments')->findOrFail($id);
+        $task = Task::with('project', 'user', 'reports')->findOrFail($id);
         try {
             if ($request->has('name')) $task->name = $request->name;
             if ($request->has('description')) $task->description = $request->description;
