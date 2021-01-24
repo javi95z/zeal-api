@@ -42,6 +42,9 @@ return [
         'project' => 'sometimes|required|exists:projects,id',
         'user' => 'exists:users,id',
     ],
+    'reports' => [
+        'invested_hours' => 'sometimes|required|max:4',
+    ],
     'teams' => [
         'name' => 'sometimes|required|string',
         'profile_img' => 'string',

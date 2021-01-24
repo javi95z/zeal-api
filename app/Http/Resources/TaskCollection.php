@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\TaskReport;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TaskCollection extends ResourceCollection
@@ -28,6 +29,7 @@ class TaskCollection extends ResourceCollection
         if (!$request->input('with')) return [];
         $response = [];
         if (in_array("stats", $request->input('with'))) $response["stats"] = $this->stats();
+        if (in_array("times", $request->input('with'))) $response["times"] = $this->times();
         return [
             "meta" => $response
         ];
@@ -60,5 +62,15 @@ class TaskCollection extends ResourceCollection
         $stats["status"] = $status;
         $stats["priority"] = $priority;
         return $stats;
+    }
+
+    private function times()
+    {
+        $invested = TaskReport::whereIn('task_id', $this->pluck('id'))->pluck('invested_hours')->sum();
+        $estimated = $this->collection->pluck('estimated_hours')->sum();
+        return [
+            'invested_hours' => $invested,
+            'estimated_hours' => $estimated
+        ];
     }
 }

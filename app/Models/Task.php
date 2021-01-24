@@ -44,7 +44,7 @@ class Task extends Model
      */
     public function reports()
     {
-        return $this->hasMany('App\TaskReport')->orderBy('created_at', 'desc')->with('user:name');
+        return $this->hasMany('App\TaskReport');
     }
 
 }

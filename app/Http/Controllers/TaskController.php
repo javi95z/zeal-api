@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Task;
 use App\Project;
 use App\User;
+use App\TaskReport;
 use Illuminate\Http\Request;
 use App\Http\Resources\TaskCollection;
 use App\Http\Resources\Task as TaskResource;
@@ -80,7 +81,7 @@ class TaskController extends BaseController
      */
     public function show($id)
     {
-        return new TaskResource(Task::with('project', 'user', 'reports')->findOrFail($id));
+        return new TaskResource(Task::with('project', 'user')->findOrFail($id));
     }
 
     /**
@@ -123,5 +124,10 @@ class TaskController extends BaseController
         $res = Task::findOrFail($id);
         if (!$res->delete()) return response()->json(['error' => 'Couldn\'t delete task']);
         return response()->json(true, 200);
+    }
+
+    public function reports(int $id)
+    {
+        return TaskReport::where('task_id', $id)->with('user')->orderBy('created_at', 'desc')->get();
     }
 }

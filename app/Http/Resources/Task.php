@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\TaskReport;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -44,10 +45,37 @@ class Task extends JsonResource
             'estimated_hours' => $this->estimated_hours,
             'project' => $this->whenLoaded('project'),
             'user' => $this->whenLoaded('user'),
-            'comments' => $this->whenLoaded('comments'),
+            'reports' => $this->whenLoaded('reports'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at
+        ];
+    }
+
+    /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function with($request)
+    {
+        if (!$request->input('with')) return [];
+        $response = [];
+        if (in_array("times", $request->input('with'))) $response["times"] = $this->times();
+        return [
+            "meta" => $response
+        ];
+    }
+
+    /**
+     * Get information about time management for the task.
+     */
+    private function times()
+    {
+        $invested = TaskReport::where('task_id', $this->id)->pluck('invested_hours')->sum();
+        return [
+            'invested_hours' => $invested
         ];
     }
 }

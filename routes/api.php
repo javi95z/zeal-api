@@ -42,6 +42,7 @@ Route::group(['prefix' => 'tasks'], function () {
     Route::post('', 'TaskController@store');
     Route::put('{id}', 'TaskController@update');
     Route::delete('{id}', 'TaskController@destroy');
+    Route::post('{id}/reports', 'TaskController@reports');
 });
 
 Route::group(['prefix' => 'roles'], function () {
@@ -66,6 +67,11 @@ Route::group(['prefix' => 'contacts'], function () {
     Route::post('', 'ContactController@store');
     Route::put('{id}', 'ContactController@update');
     Route::delete('{id}', 'ContactController@destroy');
+});
+
+Route::group(['prefix' => 'reports'], function () {
+    Route::post('', 'TaskReportController@store');
+    Route::delete('{id}', 'TaskReportController@destroy');
 });
 
 Route::group(['prefix' => 'logs'], function () {
