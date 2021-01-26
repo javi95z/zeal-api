@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Team;
-use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\TeamCollection;
 use App\Http\Resources\Team as TeamResource;
 
@@ -30,10 +30,16 @@ class TeamController extends BaseController
      */
     public function index(Request $request)
     {
-        // Return teams of a user if specified
-        $user = $request->input('user');
-        if ($user) return new TeamCollection(User::findOrFail($user)->teams()->with(with('users:id,name,profile_img'))->get());
-        return new TeamCollection(Team::with('users:id,name,profile_img')->get());
+        // Filter by users if specified
+        return new TeamCollection(
+            Team::when($request->input('user'), function ($query) use ($request) {
+                $query->whereHas('users', function (Builder $query) use ($request) {
+                    $query->whereIn('id', $request->input('user'));
+                });
+            })->when($request->input('limit'), function ($query) use ($request) {
+                $query->take($request->limit);
+            })->with('users:id,name,profile_img')->get()
+        );
     }
 
     /**

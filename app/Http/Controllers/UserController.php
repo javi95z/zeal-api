@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Project;
 use App\Role;
-use App\Team;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Resources\User as UserResource;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class UserController
@@ -34,14 +34,20 @@ class UserController extends BaseController
      */
     public function index(Request $request)
     {
-        // Return users of a project, team or role if specified
-        $project = $request->input('project');
-        $team = $request->input('team');
-        $role = $request->input('role');
-        if ($project) return new UserCollection(Project::findOrFail($project)->users()->with('role')->get());
-        if ($team) return new UserCollection(Team::findOrFail($team)->users()->with('role')->get());
-        if ($role) return new UserCollection(Role::findOrFail($role)->users()->get());
-        return new UserCollection(User::with('role', 'teams')->get());
+        // Filter by project, team or role if specified
+        return new UserCollection(
+            User::when($request->input('project'), function ($query) use ($request) {
+                $query->whereHas('projects', function (Builder $query) use ($request) {
+                    $query->whereIn('id', $request->input('project'));
+                });
+            })->when($request->input('team'), function ($query) use ($request) {
+                $query->whereHas('teams', function (Builder $query) use ($request) {
+                    $query->whereIn('id', $request->input('team'));
+                });
+            })->when($request->input('role'), function ($query) use ($request) {
+                $query->where('role_id', $request->input('role'));
+            })->with('role', 'teams')->get()
+        );
     }
 
     /**
