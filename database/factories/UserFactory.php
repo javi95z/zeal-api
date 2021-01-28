@@ -2,14 +2,14 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'email' => $faker->unique()->safeEmail,       
+        'email' => $faker->unique()->safeEmail,
         'active' => $faker->boolean,
         'name' => $faker->firstName . " " . $faker->lastName,
         'suffix' => $faker->title,

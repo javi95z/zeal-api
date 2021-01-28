@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Project;
-use App\Task;
+use App\Models\Project;
+use App\Models\Task;
 use App\Observers\ProjectObserver;
 use App\Observers\TaskObserver;
 use Illuminate\Support\ServiceProvider;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +23,7 @@ class TaskReport extends Model
 	 */
 	public function task()
 	{
-		return $this->belongsTo('App\Task');
+		return $this->belongsTo('App\Models\Task');
 	}
 
 	/**
@@ -31,6 +31,6 @@ class TaskReport extends Model
 	 */
 	public function user()
 	{
-		return $this->belongsTo('App\User');
+		return $this->belongsTo('App\Models\User');
 	}
 }

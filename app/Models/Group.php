@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Group extends Model
 {
     use SoftDeletes;
-    
+
     /**
      * @var array
      */
@@ -23,6 +23,6 @@ class Group extends Model
 	 */
 	public function contacts()
 	{
-		return $this->belongsToMany('App\Contact');
+		return $this->belongsToMany('App\Models\Contact');
 	}
 }

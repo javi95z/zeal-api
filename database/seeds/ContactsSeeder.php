@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Account;
 use Illuminate\Database\Seeder;
 
 class ContactsSeeder extends Seeder
@@ -11,11 +12,11 @@ class ContactsSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Contact::class, 50)
+        factory(App\Models\Contact::class, 50)
             ->create()
-            ->each(function (App\Contact $contact) {
+            ->each(function (App\Models\Contact $contact) {
                 // Add a random account and business type to each contact
-                $account = App\Account::inRandomOrder()->first();
+                $account = Account::inRandomOrder()->first();
                 $contact->account()->associate($account)->save();
             });
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,6 +24,6 @@ class Address extends Model
      */
     public function contact()
     {
-        return $this->belongsTo('App\Contact');
+        return $this->belongsTo('App\Models\Contact');
     }
 }

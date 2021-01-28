@@ -1,6 +1,6 @@
 <?php
 
-use App\Currency;
+use App\Models\Currency;
 use Illuminate\Database\Seeder;
 
 class CurrenciesSeeder extends Seeder

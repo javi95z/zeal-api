@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Task;
-use App\ActivityLog;
+use App\Models\Task;
+use App\Models\ActivityLog;
 
 class TaskObserver
 {

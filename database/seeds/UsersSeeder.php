@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Role;
+use App\Models\Team;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -19,13 +21,13 @@ class UsersSeeder extends Seeder
             'is_admin' => true
         ]);
 
-        factory(App\User::class, 20)
+        factory(App\Models\User::class, 20)
             ->create()
-            ->each(function (App\User $user) {
+            ->each(function (App\Models\User $user) {
 
                 // Add a random role and team to each user
-                $role = App\Role::inRandomOrder()->first();
-                $team = App\Team::inRandomOrder()->first();
+                $role = Role::inRandomOrder()->first();
+                $team = Team::inRandomOrder()->first();
                 $user->role()->associate($role)->save();
                 $user->teams()->attach($team);
             });

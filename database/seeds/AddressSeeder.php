@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Contact;
 use Illuminate\Database\Seeder;
 
 class AddressSeeder extends Seeder
@@ -11,11 +12,11 @@ class AddressSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Address::class, 60)
+        factory(App\Models\Address::class, 60)
             ->create()
-            ->each(function (App\Address $address) {
+            ->each(function (App\Models\Address $address) {
                 // Add a random contact to each address
-                $contact = App\Contact::inRandomOrder()->first();
+                $contact = Contact::inRandomOrder()->first();
                 $address->contact()->associate($contact)->save();
             });
     }

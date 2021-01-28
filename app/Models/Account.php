@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,6 +23,6 @@ class Account extends Model
      */
     public function currency()
     {
-        return $this->belongsTo('App\Currency');
+        return $this->belongsTo('App\Models\Currency');
     }
 }

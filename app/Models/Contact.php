@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,7 +28,7 @@ class Contact extends Model
      */
     public function addresses()
     {
-        return $this->hasMany('App\Address');
+        return $this->hasMany('App\Models\Address');
     }
 
 	/**
@@ -36,7 +36,7 @@ class Contact extends Model
 	 */
 	public function projects()
 	{
-		return $this->hasMany('App\Project');
+		return $this->hasMany('App\Models\Project');
 	}
 
     /**
@@ -44,7 +44,7 @@ class Contact extends Model
      */
     public function groups()
     {
-        return $this->belongsToMany('App\Group');
+        return $this->belongsToMany('App\Models\Group');
     }
 
     /**
@@ -52,6 +52,6 @@ class Contact extends Model
      */
     public function account()
     {
-        return $this->belongsTo('App\Account');
+        return $this->belongsTo('App\Models\Account');
     }
 }

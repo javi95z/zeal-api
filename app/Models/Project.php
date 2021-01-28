@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,7 +34,7 @@ class Project extends Model
      */
 	public function contact()
 	{
-		return $this->belongsTo('App\Contact');
+		return $this->belongsTo('App\Models\Contact');
 	}
 
     /**
@@ -42,7 +42,7 @@ class Project extends Model
      */
 	public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\Models\User');
     }
 
     /**
@@ -50,7 +50,7 @@ class Project extends Model
      */
 	public function tasks()
 	{
-		return $this->hasMany('App\Task');
+		return $this->hasMany('App\Models\Task');
 	}
 
 }

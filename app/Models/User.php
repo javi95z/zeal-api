@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -73,7 +73,7 @@ class User extends Authenticatable implements JWTSubject
 	 */
 	public function role()
 	{
-		return $this->belongsTo('App\Role');
+		return $this->belongsTo('App\Models\Role');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class User extends Authenticatable implements JWTSubject
 	 */
 	public function settings()
 	{
-		return $this->belongsTo('App\Setting');
+		return $this->belongsTo('App\Models\Setting');
 	}
 
 	/**
@@ -89,7 +89,7 @@ class User extends Authenticatable implements JWTSubject
 	 */
 	public function teams()
 	{
-		return $this->belongsToMany('App\Team');
+		return $this->belongsToMany('App\Models\Team');
 	}
 
 	/**
@@ -97,7 +97,7 @@ class User extends Authenticatable implements JWTSubject
 	 */
 	public function projects()
 	{
-		return $this->belongsToMany('App\Project');
+		return $this->belongsToMany('App\Models\Project');
 	}
 
 	/**

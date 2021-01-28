@@ -1,6 +1,7 @@
 <?php
 
-use App\TaskReport;
+use App\Models\TaskReport;
+use App\Models\Project;
 use Illuminate\Database\Seeder;
 
 class TasksSeeder extends Seeder
@@ -12,11 +13,11 @@ class TasksSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Task::class, 100)
+        factory(App\Models\Task::class, 100)
             ->create()
-            ->each(function (App\Task $task) {
+            ->each(function (App\Models\Task $task) {
                 // Attach the task to a project and create reports for it
-                $project = App\Project::inRandomOrder()->first();
+                $project = Project::inRandomOrder()->first();
                 $task->project()->associate($project)->save();
                 $num = rand(2, 8);
                 $task->reports()->saveMany(factory(TaskReport::class, $num)->make());

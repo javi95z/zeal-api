@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Currency;
 use Illuminate\Database\Seeder;
 
 class AccountsSeeder extends Seeder
@@ -11,11 +12,11 @@ class AccountsSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Account::class, 20)
+        factory(App\Models\Account::class, 20)
             ->create()
-            ->each(function (App\Account $account) {
+            ->each(function (App\Models\Account $account) {
                 // Add a random currency to each account
-                $currency = App\Currency::inRandomOrder()->first();
+                $currency = Currency::inRandomOrder()->first();
                 $account->currency()->associate($currency)->save();
             });
     }

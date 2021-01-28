@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Task;
+use App\Models\Task;
 use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
 
@@ -11,7 +11,7 @@ $factory->define(Task::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence,
         'user_id' => function () {
-            return App\User::inRandomOrder()->first()->id;
+            return App\Models\User::inRandomOrder()->first()->id;
         },
         'description' => $faker->text(500),
         'estimated_hours' => $faker->numberBetween(4, 16),

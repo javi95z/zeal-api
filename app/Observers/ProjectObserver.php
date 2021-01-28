@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Project;
-use App\ActivityLog;
+use App\Models\Project;
+use App\Models\ActivityLog;
 
 class ProjectObserver
 {
