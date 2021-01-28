@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Task;
-use App\Project;
-use App\User;
-use App\TaskReport;
+use App\Models\Task;
+use App\Models\Project;
+use App\Models\User;
+use App\Models\TaskReport;
 use Illuminate\Http\Request;
 use App\Http\Resources\TaskCollection;
 use App\Http\Resources\Task as TaskResource;

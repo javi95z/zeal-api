@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\TaskReport;
+use App\Models\TaskReport;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**

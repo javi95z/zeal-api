@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\ActivityLog;
-use App\Project;
-use App\Task;
+use App\Models\ActivityLog;
+use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;

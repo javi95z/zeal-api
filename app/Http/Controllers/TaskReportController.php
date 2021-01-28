@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\TaskReport;
+use App\Models\TaskReport;
 use Illuminate\Http\Request;
 use App\Http\Resources\TaskReport as TaskReportResource;
 
