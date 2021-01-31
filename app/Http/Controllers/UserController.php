@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Resources\User as UserResource;
-use Illuminate\Support\Facades\App;
 
 /**
  * Class UserController

@@ -31,11 +31,17 @@ class ProjectController extends BaseController
      */
     public function index(Request $request)
     {
-        // Filter by users or contact if specified
+        // Filter by users, teams or contact if specified
         return new ProjectCollection(
             Project::when($request->input('user'), function ($query) use ($request) {
                 $query->whereHas('users', function (Builder $query) use ($request) {
                     $query->whereIn('id', $request->input('user'));
+                });
+            })->when($request->input('team'), function ($query) use ($request) {
+                $query->whereHas('users', function (Builder $query) use ($request) {
+                    $query->whereHas('teams', function (Builder $query) use ($request) {
+                        $query->whereIn('id', $request->input('team'));
+                    });
                 });
             })->when($request->input('contact'), function ($query) use ($request) {
                 $query->where('contact_id', $request->input('contact'));
