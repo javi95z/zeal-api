@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 /**
  * Class AuthController
  * @package App\Http\Controllers
@@ -12,7 +16,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('jwt', ['except' => ['login', 'refresh']]);
+        $this->middleware('jwt', ['except' => ['login', 'signup', 'refresh']]);
     }
 
     /**
@@ -26,6 +30,27 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($credentials))
             return response()->json('Login unauthorized', 401);
         return $this->respondWithToken($token);
+    }
+
+    /**
+     * Sign up a new user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function signup(Request $request)
+    {
+        try {
+            $user = new User;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->name = $request->name;
+            $user->suffix = $request->suffix;
+            $user->gender = $request->gender;
+            $user->save();
+        } catch (\Exception $ex) {
+            return response()->json(['error' => 'There was an error in your request'], 400);
+        }
+        return response()->json(['success' => 'User signed up correctly'], 200);
     }
 
     /**
